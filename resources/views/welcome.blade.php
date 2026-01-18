@@ -218,7 +218,7 @@
                 <div class="glass p-8 rounded-2xl border-l-4 border-primary">
                     <h3 class="text-xl font-bold mb-4 text-white">My Current Focus</h3>
                     <ul class="space-y-4 text-gray-400">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Stabilizing income with dignity</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Stabilizing people with dignity</li>
                         <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Building execution habits</li>
                         <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Creating useful digital tools</li>
                         <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Preparing for deeper work</li>
