@@ -1,169 +1,47 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sagar Karmakar | Clarity & Creation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Tangerine:wght@700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        logo: ['Tangerine', 'cursive'],
-                    },
-                    colors: {
-                        primary: '#818cf8', // Soft Indigo
-                        secondary: '#2dd4bf', // Teal (Calm/Healing)
-                        dark: '#0f172a',
-                        paper: 'rgba(30, 41, 59, 0.7)'
-                    },
-                    animation: {
-                        'blob': 'blob 10s infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #0f172a;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #818cf8;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2dd4bf;
-        }
+@extends('layouts.app')
 
-        /* Glassmorphism Utilities */
-        .glass {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+@section('title', 'Sagar Karmakar | Clarity & Creation')
 
-        /* Text Gradient */
-        .text-gradient {
-            background: linear-gradient(to right, #818cf8, #2dd4bf, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% auto;
-            animation: gradient 8s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Canvas Positioning */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .quote-border {
-            border-left: 3px solid #2dd4bf;
-        }
-    </style>
-</head>
-<body class="antialiased selection:bg-teal-500 selection:text-white">
-
+@section('background')
     <!-- Dynamic Background Canvas -->
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full -z-10 opacity-50"></canvas>
+@endsection
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 cursor-pointer group" onclick="window.scrollTo(0,0)">
-                    <span class="text-5xl font-bold font-logo text-white group-hover:text-primary transition-colors pt-2 block">Sagar</span>
-                </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Start</a>
-                        <a href="#story" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">My Story</a>
-                        <a href="#philosophy" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Philosophy</a>
-                        <a href="#services" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Services</a>
-                        <a href="#contact" class="px-5 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-medium transition-all">Work With Me</a>
-                    </div>
-                </div>
+@section('menu')
+    <a href="#home" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Start</a>
+    <a href="#story" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">My Story</a>
+    <a href="#philosophy" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Philosophy</a>
+    <a href="#services" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Services</a>
+    <a href="#contact" class="px-5 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-medium transition-all">Work With Me</a>
+@endsection
 
-                <!-- Mobile menu button -->
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu Panel -->
-        <div class="hidden md:hidden glass border-t border-white/5" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Start</a>
-                <a href="#story" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10">My Story</a>
-                <a href="#philosophy" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10">Philosophy</a>
-                <a href="#services" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10">Services</a>
-                <a href="#contact" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-white hover:bg-white/10">Work With Me</a>
-            </div>
-        </div>
+@section('mobile-menu')
+    <!-- Menu Items -->
+    <nav class="space-y-8 text-center flex flex-col relative z-10">
+        <a href="#home" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/90 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Start</a>
+        <a href="#story" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/60 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">My Story</a>
+        <a href="#philosophy" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/60 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Philosophy</a>
+        <a href="#services" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/60 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Services</a>
     </nav>
 
+    <!-- CTA -->
+    <div class="mt-10 text-center relative z-10">
+        <a href="#contact" onclick="toggleMenu()" class="mobile-link inline-block px-8 py-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white font-medium text-lg hover:bg-white hover:text-dark transition-all duration-300 shadow-lg hover:shadow-primary/50 group">
+            Work With Me <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+    </div>
+
+    <!-- Social / Footer -->
+    <div class="mt-12 flex justify-center gap-8 border-t border-white/10 pt-8 w-full max-w-xs relative z-10">
+        <a href="#" class="text-white/50 hover:text-white transition-colors hover:scale-125 duration-300"><i class="fab fa-twitter text-2xl"></i></a>
+        <a href="#" class="text-white/50 hover:text-white transition-colors hover:scale-125 duration-300"><i class="fab fa-linkedin text-2xl"></i></a>
+        <a href="#" class="text-white/50 hover:text-white transition-colors hover:scale-125 duration-300"><i class="fab fa-instagram text-2xl"></i></a>
+    </div>
+    
+    <p class="text-gray-600 text-xs mt-6">&copy; {{ date('Y') }} Sagar Karmakar</p>
+@endsection
+
+@section('content')
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center relative pt-16">
         <!-- Background Blobs -->
@@ -412,6 +290,11 @@
                                 "I don’t promise miracles. I promise presence, honesty, clarity, and grounded next steps. Real change is quiet at first."
                             </p>
                         </div>
+                        <div class="mt-6">
+                            <a href="{{ url('/healing-form') }}" class="inline-flex items-center gap-2 text-secondary hover:text-white transition-colors font-medium">
+                                Fill Pre-Session Form <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -467,64 +350,29 @@
             </div>
         </div>
     </section>
+@endsection
 
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-black/40 pt-12 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <span class="text-5xl font-bold font-logo text-white">Sagar</span>
-                </div>
-                <div class="text-gray-500 text-sm flex flex-col items-center md:items-end">
-                    <p>&copy; 2026 Sagar Karmakar.</p>
-                    <p class="mt-1 text-primary/70">Built with clarity, not noise.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+@push('scripts')
+<script>
+    function sendToWhatsapp() {
+        const name = document.getElementById('contact-name').value;
+        const email = document.getElementById('contact-email').value;
+        const option = document.getElementById('contact-option').value;
+        const message = document.getElementById('contact-message').value;
 
-    <!-- Scripts -->
-    <script>
-        function sendToWhatsapp() {
-            const name = document.getElementById('contact-name').value;
-            const email = document.getElementById('contact-email').value;
-            const option = document.getElementById('contact-option').value;
-            const message = document.getElementById('contact-message').value;
+        const phoneNumber = "918961373748";
+        
+        // Construct the message with proper formatting
+        const text = `*New Session Request*\n\n*Name:* ${name}\n*Email:* ${email}\n*Interest:* ${option}\n*Message:* ${message}`;
+        
+        // Encode the text for URL and open WhatsApp
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+    }
 
-            const phoneNumber = "918961373748";
-            
-            // Construct the message with proper formatting
-            const text = `*New Session Request*\n\n*Name:* ${name}\n*Email:* ${email}\n*Interest:* ${option}\n*Message:* ${message}`;
-            
-            // Encode the text for URL and open WhatsApp
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-        }
-
-        // Mobile Menu Toggle
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Scroll Reveal Animation
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        // Trigger once on load
-        reveal();
-
-        // Canvas Particle Network (Slightly slower/calmer for this persona)
-        const canvas = document.getElementById('bg-canvas');
+    // Canvas Particle Network (Slightly slower/calmer for this persona)
+    const canvas = document.getElementById('bg-canvas');
+    if (canvas) {
         const ctx = canvas.getContext('2d');
         let particlesArray;
 
@@ -613,18 +461,8 @@
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
         }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            connect();
-        }
-
-        function connect() {
+        
+        function drawLines() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
                 for (let b = a; b < particlesArray.length; b++) {
@@ -644,8 +482,18 @@
             }
         }
 
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            drawLines();
+        }
+
         init();
         animate();
-    </script>
-</body>
-</html>
+    }
+</script>
+@endpush
