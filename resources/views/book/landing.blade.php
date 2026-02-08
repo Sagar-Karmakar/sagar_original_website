@@ -69,12 +69,10 @@
                 <!-- Book Image -->
                 <div class="lg:w-1/2 flex justify-center reveal active" style="transition-delay: 200ms;">
                     <div class="relative group">
-                        <!-- Glow behind book -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-lg blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        
-                        <img src="{{ asset('images/this-is-not-laziness-cover.jpg') }}" 
+                        <!-- Removed fake background glow -->
+                        <img src="{{ asset('images/this-is-not-laziness-cover.png') }}" 
                              alt="Book Cover" 
-                             class="book-cover-3d relative z-10 w-[300px] md:w-[360px] max-w-full"
+                             class="relative z-10 w-[300px] md:w-[360px] max-w-full drop-shadow-2xl hover:scale-105 transition-transform duration-500"
                              onerror="this.src='https://placehold.co/400x600/1e293b/e2e8f0?text=Cover+Image+Missing';">
                     </div>
                 </div>
@@ -242,19 +240,25 @@
                             <form action="{{ route('book.send') }}" method="POST" class="space-y-4">
                                 @csrf
                                 <div>
-                                    <label class="block text-sm text-gray-400 mb-1">Email To Send PDF</label>
+                                    <label class="block text-sm text-gray-400 mb-1">Full Name</label>
+                                    <input type="text" name="name" required placeholder="Your Name"
+                                           class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder-gray-600">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-1">Email Address</label>
                                     <input type="email" name="email" required placeholder="you@example.com"
                                            class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder-gray-600">
                                 </div>
                                 
                                 <div>
-                                    <label class="block text-sm text-gray-400 mb-1">WhatsApp Number <span class="text-xs opacity-50">(Optional)</span></label>
-                                    <input type="text" name="whatsapp" placeholder="+91 98765 43210"
+                                    <label class="block text-sm text-gray-400 mb-1">WhatsApp / Phone Number</label>
+                                    <input type="text" name="phone" required placeholder="+91 98765 43210"
                                            class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder-gray-600">
                                 </div>
 
                                 <button type="submit" class="w-full bg-white text-dark font-bold text-lg py-3 rounded-lg hover:bg-gray-200 transition-colors mt-2 shadow-lg shadow-white/5">
-                                    Send Me The Book
+                                    I want the book to review
                                 </button>
                                 
                                 <p class="text-center text-xs text-gray-500 mt-4">

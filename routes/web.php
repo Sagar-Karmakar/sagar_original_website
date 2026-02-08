@@ -18,9 +18,12 @@ Route::post('/healing-submit', [App\Http\Controllers\HealingFormController::clas
 
 // Book Landing Page Routes
 Route::get('/book/thisisnotlaziness', [App\Http\Controllers\BookLandingController::class, 'index'])->name('book.landing');
-Route::post('/book/thisisnotlaziness/send', [App\Http\Controllers\BookLandingController::class, 'send'])->name('book.send');
-Route::get('/book/thank-you', [App\Http\Controllers\BookLandingController::class, 'thankYou'])->name('book.thank-you');
+Route::post('/book/thisisnotlaziness/send', [App\Http\Controllers\NotificationController::class, 'submitLead'])->name('book.send');
+Route::get('/book/thisisnotlaziness/thankyou', [App\Http\Controllers\BookLandingController::class, 'thankYou'])->name('book.thank-you');
 
 // Legal Pages
 Route::view('/privacy-policy', 'legal.privacy')->name('privacy');
 Route::view('/terms-and-conditions', 'legal.terms')->name('terms');
+
+Route::post('/contact-submit', [App\Http\Controllers\NotificationController::class, 'submitContact']);
+Route::post('/healing-submit', [App\Http\Controllers\NotificationController::class, 'submitApplication']);

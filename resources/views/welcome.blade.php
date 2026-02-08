@@ -302,7 +302,8 @@
                 <div class="reveal">
                     <div class="glass p-8 rounded-2xl mb-8">
                         <h3 class="text-2xl font-bold mb-6">Request a Session</h3>
-                        <form onsubmit="event.preventDefault(); sendToWhatsapp();" class="space-y-4">
+                        <form id="contact-form" class="space-y-4">
+                            @csrf
                             <div>
                                 <input type="text" id="contact-name" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder-gray-500" placeholder="Your Name" required>
                             </div>
@@ -324,9 +325,10 @@
                             <div>
                                 <textarea id="contact-message" rows="4" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder-gray-500" placeholder="What's on your mind?" required></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-white text-dark font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                                Send Request via WhatsApp <i class="fab fa-whatsapp text-green-600 text-xl"></i>
+                            <button type="submit" id="submit-btn" class="w-full bg-white text-dark font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                                <span>Send Request</span> <i class="fas fa-paper-plane text-primary text-xl"></i>
                             </button>
+                            <div id="form-message" class="text-center mt-3 text-sm font-medium"></div>
                         </form>
                     </div>
                     
@@ -354,21 +356,56 @@
 
 @push('scripts')
 <script>
-    function sendToWhatsapp() {
-        const name = document.getElementById('contact-name').value;
-        const email = document.getElementById('contact-email').value;
-        const option = document.getElementById('contact-option').value;
-        const message = document.getElementById('contact-message').value;
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('submit-btn');
+        const msgDiv = document.getElementById('form-message');
+        const originalBtnContent = btn.innerHTML;
 
-        const phoneNumber = "918961373748";
-        
-        // Construct the message with proper formatting
-        const text = `*New Session Request*\n\n*Name:* ${name}\n*Email:* ${email}\n*Interest:* ${option}\n*Message:* ${message}`;
-        
-        // Encode the text for URL and open WhatsApp
-        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-    }
+        // Disable button and show loading state
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        msgDiv.textContent = '';
+        msgDiv.className = 'text-center mt-3 text-sm font-medium';
+
+        const formData = {
+            name: document.getElementById('contact-name').value,
+            email: document.getElementById('contact-email').value,
+            option: document.getElementById('contact-option').value,
+            message: document.getElementById('contact-message').value,
+            _token: document.querySelector('input[name="_token"]').value
+        };
+
+        try {
+            const response = await fetch('/contact-submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': formData._token
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                msgDiv.textContent = result.message || 'Message sent successfully!';
+                msgDiv.classList.add('text-green-400');
+                document.getElementById('contact-form').reset();
+            } else {
+                throw new Error(result.message || 'Failed to send message.');
+            }
+        } catch (error) {
+            msgDiv.textContent = error.message;
+            msgDiv.classList.add('text-red-400');
+        } finally {
+            // Restore button state
+            btn.disabled = false;
+            btn.innerHTML = originalBtnContent;
+        }
+    });
 
     // Canvas Particle Network (Slightly slower/calmer for this persona)
     const canvas = document.getElementById('bg-canvas');

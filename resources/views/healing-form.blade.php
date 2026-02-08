@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Healing Support Form | Sagar Karmakar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Tangerine:wght@700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        logo: ['Tangerine', 'cursive'],
-                    },
-                    colors: {
-                        primary: '#818cf8',
-                        secondary: '#2dd4bf',
-                        dark: '#0f172a',
-                        danger: '#f43f5e'
-                    }
-                }
-            }
-        }
-    </script>
+@extends('layouts.app')
+
+@section('title', 'Healing Support Form | Sagar Karmakar')
+
+@push('styles')
     <style>
-        body {
-            background-color: #0f172a;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
+        /* Only form-specific styles needed here */
         
         .glass {
             background: rgba(30, 41, 59, 0.7);
@@ -127,12 +101,13 @@
             opacity: 0.4;
         }
     </style>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
-<body class="min-h-screen flex items-center justify-center p-4">
+@endpush
 
-    <!-- Background -->
-    <canvas id="bg-canvas"></canvas>
+@section('content')
+    <!-- Background (Handled by Layout but can overlap if needed, or we just remove this local canvas) -->
+    <!-- <canvas id="bg-canvas"></canvas> --> 
+
+    <section class="min-h-screen flex items-center justify-center p-4 pt-24">
 
     <div class="w-full max-w-2xl my-10">
         <!-- Header -->
@@ -622,7 +597,10 @@
             </form>
         </div>
     </div>
+    </section>
+@endsection
 
+@push('scripts')
     <!-- Logic Script -->
     <script>
         let currentStep = 1;
@@ -634,61 +612,6 @@
         const errorMessage = document.getElementById('step-error-message');
         let safetyLock = false;
 
-        // Particle Background Logic
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
-
-        class Particle {
-            constructor(x, y, size) {
-                this.x = x;
-                this.y = y;
-                this.size = size;
-                this.baseX = this.x;
-                this.baseY = this.y;
-                this.density = (Math.random() * 30) + 1;
-            }
-            draw() {
-                ctx.fillStyle = '#818cf8';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
-            }
-            update() {
-                this.draw();
-            }
-        }
-
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = 50;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let x = Math.random() * canvas.width;
-                let y = Math.random() * canvas.height;
-                let size = (Math.random() * 2) + 1;
-                particlesArray.push(new Particle(x, y, size));
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            requestAnimationFrame(animate);
-        }
-        init();
-        animate();
 
         // Form Logic
         function updateUI() {
@@ -786,7 +709,7 @@
             }
         }
 
-       function submitForm() {
+        function submitForm() {
             const form = document.getElementById('multi-step-form');
             const duplicateFormData = new FormData(form);
             const data = Object.fromEntries(duplicateFormData.entries());
@@ -838,5 +761,4 @@
         updateUI();
 
     </script>
-</body>
-</html>
+@endpush
