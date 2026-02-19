@@ -14,6 +14,10 @@ Route::get('/healing-form-v2', function () {
     return view('healing-form-v2');
 });
 
+Route::get('/card-qr', function () {
+    return view('card-qr');
+});
+
 Route::post('/healing-submit', [App\Http\Controllers\HealingFormController::class, 'submit']);
 
 // Book Landing Page Routes
