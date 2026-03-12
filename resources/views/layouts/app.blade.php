@@ -22,10 +22,10 @@
                         logo: ['Tangerine', 'cursive'],
                     },
                     colors: {
-                        primary: '#818cf8', // Soft Indigo
-                        secondary: '#2dd4bf', // Teal
-                        dark: '#0f172a',    // Slate 900
-                        paper: 'rgba(30, 41, 59, 0.7)'
+                        primary: '#14b8a6', // Teal 500
+                        secondary: '#5eead4', // Teal 300
+                        dark: '#042f2e',    // Teal 950
+                        paper: 'rgba(19, 78, 74, 0.7)' // Teal 900 with opacity
                     },
                     animation: {
                         'blob': 'blob 10s infinite',
@@ -55,33 +55,33 @@
         }
 
         body {
-            background-color: #0f172a;
-            color: #e2e8f0;
+            background-color: #042f2e;
+            color: #ccfbf1;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1e293b; }
-        ::-webkit-scrollbar-thumb { background: #818cf8; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #2dd4bf; }
+        ::-webkit-scrollbar-track { background: #134e4a; }
+        ::-webkit-scrollbar-thumb { background: #14b8a6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5eead4; }
 
         /* Glassmorphism Utilities */
         .glass {
-            background: rgba(30, 41, 59, 0.6);
+            background: rgba(19, 78, 74, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-nav {
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(4, 47, 46, 0.85);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Text Gradient */
         .text-gradient {
-            background: linear-gradient(to right, #818cf8, #2dd4bf, #c084fc);
+            background: linear-gradient(to right, #5eead4, #14b8a6, #99f6e4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -105,7 +105,7 @@
             transform: translateY(0);
         }
         
-        .quote-border { border-left: 3px solid #2dd4bf; }
+        .quote-border { border-left: 3px solid #5eead4; }
     </style>
     @stack('styles')
 </head>
@@ -125,7 +125,10 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        @yield('menu')
+                        <a href="{{ route('home') }}" class="text-sm font-medium hover:text-primary transition-colors {{ request()->routeIs('home') ? 'text-white font-semibold' : 'text-gray-300' }}">Home</a>
+                        <a href="{{ route('about') }}" class="text-sm font-medium hover:text-primary transition-colors {{ request()->routeIs('about') ? 'text-white font-semibold' : 'text-gray-300' }}">About</a>
+                        <a href="{{ route('insights') }}" class="text-sm font-medium hover:text-primary transition-colors {{ request()->routeIs('insights') ? 'text-white font-semibold' : 'text-gray-300' }}">Insights</a>
+                        <a href="{{ route('contact') }}" class="px-5 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-medium transition-all">Contact</a>
                     </div>
                 </div>
 
@@ -148,7 +151,19 @@
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-slate-900/70 backdrop-blur-2xl z-[60] transform translate-x-full transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col justify-center items-center border-l border-white/10 shadow-2xl">
         <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"></div>
         <div class="w-full max-w-lg mx-auto px-6 flex flex-col items-center justify-center space-y-8 opacity-0 transition-all duration-500 delay-100 scale-95" id="mobile-menu-content">
-            @yield('mobile-menu')
+            <nav class="space-y-8 text-center flex flex-col relative z-10 w-full">
+                <a href="{{ route('home') }}" onclick="toggleMenu()" class="mobile-link text-3xl font-serif {{ request()->routeIs('home') ? 'text-white font-bold' : 'text-white/60' }} hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Home</a>
+                <a href="{{ route('about') }}" onclick="toggleMenu()" class="mobile-link text-3xl font-serif {{ request()->routeIs('about') ? 'text-white font-bold' : 'text-white/60' }} hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">About</a>
+                <a href="{{ route('insights') }}" onclick="toggleMenu()" class="mobile-link text-3xl font-serif {{ request()->routeIs('insights') ? 'text-white font-bold' : 'text-white/60' }} hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Insights</a>
+                <a href="{{ route('contact') }}" onclick="toggleMenu()" class="mobile-link text-3xl font-serif {{ request()->routeIs('contact') ? 'text-white font-bold' : 'text-white/60' }} hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Contact</a>
+            </nav>
+            <div class="mt-8 flex justify-center gap-6 border-t border-white/10 pt-8 w-full max-w-sm relative z-10 flex-wrap">
+                <a href="https://youtube.com/@AlignWithSagar" target="_blank" title="YouTube" class="text-white/50 hover:text-primary transition-colors hover:scale-125 duration-300"><i class="fab fa-youtube text-2xl"></i></a>
+                <a href="https://x.com/AlignWithSagar" target="_blank" title="X (Twitter)" class="text-white/50 hover:text-primary transition-colors hover:scale-125 duration-300"><i class="fab fa-twitter text-2xl"></i></a>
+                <a href="https://instagram.com/AlignWithSagar" target="_blank" title="Instagram" class="text-white/50 hover:text-primary transition-colors hover:scale-125 duration-300"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href="https://linkedin.com/in/AlignWithSagar" target="_blank" title="LinkedIn" class="text-white/50 hover:text-primary transition-colors hover:scale-125 duration-300"><i class="fab fa-linkedin text-2xl"></i></a>
+                <a href="https://wa.me/916291373748" target="_blank" title="WhatsApp (+91-6291373748)" class="text-white/50 hover:text-primary transition-colors hover:scale-125 duration-300"><i class="fab fa-whatsapp text-2xl"></i></a>
+            </div>
         </div>
     </div>
 

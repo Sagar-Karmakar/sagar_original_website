@@ -4,410 +4,209 @@
 
 @section('background')
     <!-- Dynamic Background Canvas -->
-    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full -z-10 opacity-50"></canvas>
-@endsection
-
-@section('menu')
-    <a href="#home" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Start</a>
-    <a href="#story" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">My Story</a>
-    <a href="#philosophy" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Philosophy</a>
-    <a href="#services" class="text-sm font-medium hover:text-primary transition-colors text-gray-300">Services</a>
-    <a href="#contact" class="px-5 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-medium transition-all">Work With Me</a>
-@endsection
-
-@section('mobile-menu')
-    <!-- Menu Items -->
-    <nav class="space-y-8 text-center flex flex-col relative z-10">
-        <a href="#home" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/90 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Start</a>
-        <a href="#story" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/60 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">My Story</a>
-        <a href="#philosophy" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/60 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Philosophy</a>
-        <a href="#services" onclick="toggleMenu()" class="mobile-link text-3xl font-serif text-white/60 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg">Services</a>
-    </nav>
-
-    <!-- CTA -->
-    <div class="mt-10 text-center relative z-10">
-        <a href="#contact" onclick="toggleMenu()" class="mobile-link inline-block px-8 py-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white font-medium text-lg hover:bg-white hover:text-dark transition-all duration-300 shadow-lg hover:shadow-primary/50 group">
-            Work With Me <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-        </a>
-    </div>
-
-    <!-- Social / Footer -->
-    <div class="mt-12 flex justify-center gap-8 border-t border-white/10 pt-8 w-full max-w-xs relative z-10">
-        <a href="#" class="text-white/50 hover:text-white transition-colors hover:scale-125 duration-300"><i class="fab fa-twitter text-2xl"></i></a>
-        <a href="#" class="text-white/50 hover:text-white transition-colors hover:scale-125 duration-300"><i class="fab fa-linkedin text-2xl"></i></a>
-        <a href="#" class="text-white/50 hover:text-white transition-colors hover:scale-125 duration-300"><i class="fab fa-instagram text-2xl"></i></a>
-    </div>
-    
-    <p class="text-gray-600 text-xs mt-6">&copy; {{ date('Y') }} Sagar Karmakar</p>
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full -z-10 opacity-40"></canvas>
 @endsection
 
 @section('content')
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative pt-16">
+    <section class="min-h-screen flex items-center justify-center relative pt-16">
         <!-- Background Blobs -->
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob"></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob animation-delay-2000"></div>
 
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span class="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-sm tracking-wider text-gray-300 mb-6 animate-float">A HUMAN BECOMING</span>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             
-            <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-                Clarity. Creation.<br>
-                <span class="text-gradient">Freedom.</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white reveal">
+                Your Relationships Shape<br>
+                <span class="text-gradient">Your Life</span>
             </h1>
             
-            <p class="text-gray-300 text-lg md:text-xl mb-6 max-w-2xl mx-auto leading-relaxed">
-                I help people quiet the noise, find clarity, and move forward with dignity.
-                I’m not here to sell a perfect life. I’m here to build a real one.
+            <p class="text-gray-300 text-lg md:text-2xl mb-4 max-w-3xl mx-auto leading-relaxed reveal" style="transition-delay: 100ms">
+                Helping you build healthy relationships with yourself and others through
+            </p>
+            
+            <p class="text-secondary font-medium text-lg md:text-xl mb-10 tracking-wide reveal" style="transition-delay: 200ms">
+                Self-Respect • Emotional Maturity • Communication
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                <a href="#contact" class="px-8 py-4 rounded-full bg-white text-dark font-bold hover:bg-gray-200 transition-colors shadow-lg shadow-white/5">
-                    Work With Me
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10 reveal" style="transition-delay: 300ms">
+                <a href="{{ route('insights') }}" class="px-8 py-4 rounded-full bg-primary text-dark font-bold hover:bg-white hover:text-dark transition-colors shadow-lg shadow-primary/20">
+                    Explore Insights
                 </a>
-                <a href="#story" class="px-8 py-4 rounded-full border border-white/20 hover:bg-white/5 transition-colors backdrop-blur-sm">
-                    Read My Story
+                <a href="{{ route('contact') }}" class="px-8 py-4 rounded-full border border-secondary/40 text-secondary hover:bg-secondary/10 transition-colors backdrop-blur-sm">
+                    Start Your Relationship Journey
                 </a>
             </div>
         </div>
         
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#story" class="text-gray-500 hover:text-white transition-colors">
+            <a href="#why-relationships-matter" class="text-gray-500 hover:text-secondary transition-colors">
                 <i class="fas fa-arrow-down text-xl"></i>
             </a>
         </div>
     </section>
 
-    <!-- Who I Am & My Story -->
-    <section id="story" class="py-24 relative">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Short Intro -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24 reveal">
-                <div>
-                    <h2 class="text-3xl font-bold mb-6">Who I Am</h2>
-                    <p class="text-lg text-gray-300 leading-relaxed mb-6">
-                        I’m a deep thinker, system builder, and guide for people who feel stuck between survival and their real potential.
+    <!-- Section: Why Relationships Matter -->
+    <section id="why-relationships-matter" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass rounded-3xl p-8 md:p-14 reveal shadow-2xl shadow-black/50 border-t border-primary/20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10 text-center text-white"><span class="border-b-2 border-secondary pb-2">Why Relationships Matter</span></h2>
+                
+                <div class="space-y-8 text-lg md:text-xl text-gray-300 leading-relaxed font-light">
+                    <p class="text-center italic text-2xl text-white font-serif mb-12">
+                        "Most problems in life are not really career problems or money problems.<br>
+                        <span class="text-primary not-italic font-sans font-semibold mt-4 block">They are relationship problems.</span>"
                     </p>
-                    <p class="text-lg text-gray-300 leading-relaxed mb-6">
-                        I build tools, conversations, and experiences that help the mind calm down and the next step become obvious.
-                        I believe clarity is not motivation — <span class="text-white font-semibold">it’s relief.</span>
-                    </p>
-                </div>
-                <div class="glass p-8 rounded-2xl border-l-4 border-primary">
-                    <h3 class="text-xl font-bold mb-4 text-white">My Current Focus</h3>
-                    <ul class="space-y-4 text-gray-400">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Stabilizing people with dignity</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Building execution habits</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Creating useful digital tools</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary"></i> Preparing for deeper work</li>
-                    </ul>
-                    <p class="mt-6 text-sm italic text-gray-500">"This is a foundation phase — not a performance phase."</p>
-                </div>
-            </div>
-
-            <!-- The Honest Version -->
-            <div class="glass rounded-3xl p-8 md:p-12 reveal">
-                <div class="max-w-3xl mx-auto">
-                    <h2 class="text-3xl font-bold mb-8 text-center"><span class="text-gradient">The Honest Version</span></h2>
                     
-                    <div class="space-y-6 text-lg text-gray-300">
-                        <p>
-                            For years, my life looked like motion on the inside and stagnation on the outside.
-                            I could think deeply. Create for hours. Build systems. Imagine futures.
-                        </p>
-                        <p>
-                            But money pressure, family conflict, and constant judgment kept my nervous system in survival mode.
-                            I learned something the hard way:
-                        </p>
-                        
-                        <div class="my-8 p-6 bg-white/5 rounded-xl text-center">
-                            <h3 class="text-2xl font-serif italic text-white">"When the mind is loud, execution disappears."</h3>
+                    <div class="flex flex-col md:flex-row gap-6 justify-center my-10 py-8 border-y border-white/10">
+                        <div class="text-center md:text-right flex-1 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
+                            <i class="fas fa-user mb-4 text-3xl text-secondary"></i>
+                            <p class="font-medium text-white">The relationship you have with yourself.</p>
                         </div>
+                        <div class="text-center md:text-left flex-1 pt-6 md:pt-0 md:pl-6">
+                            <i class="fas fa-users mb-4 text-3xl text-primary"></i>
+                            <p class="font-medium text-white">The relationship you have with others.</p>
+                        </div>
+                    </div>
 
-                        <p>
-                            So I stopped chasing hacks and started rebuilding fundamentals — safety, rhythm, clarity, and self‑trust.
-                            This website is not a highlight reel. It’s a marker of a turning point.
-                        </p>
+                    <p>
+                        When these relationships are healthy, life becomes clearer, calmer, and more meaningful.
+                    </p>
+                    <p>
+                        But most people were never taught how relationships actually work. We learn math, science, and history in school, but no one teaches us how to build healthy relationships, understand emotions, or communicate with maturity.
+                    </p>
+                    <div class="mt-8 p-6 bg-primary/10 rounded-xl border-l-4 border-secondary text-white font-medium">
+                        That’s what this work is about. Understanding the psychology of relationships so we can create healthier connections and live more peaceful lives.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- What I Believe -->
-    <section id="philosophy" class="py-24 bg-black/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section: The Three Foundations of Healthy Relationships -->
+    <section class="py-24 bg-dark/50 relative border-y border-white/5">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">What I Believe</h2>
-                <div class="w-16 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">The Three Foundations</h2>
+                <p class="text-xl text-primary mb-6">of Healthy Relationships</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+                <p class="mt-8 text-gray-300 max-w-2xl mx-auto">Healthy relationships are built on three essential pillars.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glass p-6 rounded-xl hover:bg-white/5 transition-colors reveal">
-                    <i class="fas fa-lightbulb text-3xl text-secondary mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Clarity beats motivation.</h3>
-                    <p class="text-gray-400">Motivation is fleeting. Clarity provides the map to keep going.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Pillar 1 -->
+                <div class="glass p-8 md:p-10 rounded-2xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 reveal flex flex-col h-full border-t border-white/10">
+                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <i class="fas fa-seedling text-9xl text-white"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-6 border border-primary/30">
+                        <i class="fas fa-heart text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Self-Respect</h3>
+                    <p class="text-secondary text-sm uppercase tracking-wider font-semibold mb-6">The Beginning</p>
+                    <div class="text-gray-300 space-y-4 flex-grow relative z-10">
+                        <p class="font-medium text-white italic">Every relationship begins with the relationship you have with yourself.</p>
+                        <p>Self-respect means understanding your value, setting boundaries, and not losing yourself in the process of loving someone else.</p>
+                        <p>Without self-respect, relationships often become imbalanced.</p>
+                    </div>
                 </div>
-                <div class="glass p-6 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 100ms">
-                    <i class="fas fa-shield-alt text-3xl text-primary mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Action follows safety.</h3>
-                    <p class="text-gray-400">You cannot build a future when your nervous system is fighting for survival.</p>
+
+                <!-- Pillar 2 -->
+                <div class="glass p-8 md:p-10 rounded-2xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 reveal flex flex-col h-full border-t border-white/10" style="transition-delay: 100ms">
+                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <i class="fas fa-brain text-9xl text-white"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-secondary/20 flex items-center justify-center mb-6 border border-secondary/30">
+                        <i class="fas fa-spa text-2xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Emotional Maturity</h3>
+                    <p class="text-secondary text-sm uppercase tracking-wider font-semibold mb-6">The Navigator</p>
+                    <div class="text-gray-300 space-y-4 flex-grow relative z-10">
+                        <p>Emotional maturity is the ability to understand your emotions and respond thoughtfully instead of reacting impulsively.</p>
+                        <p>It helps you navigate conflict, handle insecurity, and build emotional stability in relationships.</p>
+                        <p class="font-medium text-white">Emotionally mature relationships create safety and understanding.</p>
+                    </div>
                 </div>
-                <div class="glass p-6 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 200ms">
-                    <i class="fas fa-brain text-3xl text-purple-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Consistency is a skill.</h3>
-                    <p class="text-gray-400">It's not about willpower; it's about regulating your nervous system.</p>
-                </div>
-                <div class="glass p-6 rounded-xl hover:bg-white/5 transition-colors reveal">
-                    <i class="fas fa-coins text-3xl text-yellow-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Money is not evil.</h3>
-                    <p class="text-gray-400">Fear around money is the problem. Healing and earning can coexist.</p>
-                </div>
-                <div class="glass p-6 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 100ms">
-                    <i class="fas fa-shoe-prints text-3xl text-green-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Small honest steps.</h3>
-                    <p class="text-gray-400">They compound faster than big fantasies ever will.</p>
-                </div>
-                <div class="glass p-6 rounded-xl hover:bg-white/5 transition-colors reveal" style="transition-delay: 200ms">
-                    <i class="fas fa-feather text-3xl text-pink-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Quiet change.</h3>
-                    <p class="text-gray-400">Real transformation doesn't scream. It whispers and builds.</p>
+
+                <!-- Pillar 3 -->
+                <div class="glass p-8 md:p-10 rounded-2xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 reveal flex flex-col h-full border-t border-white/10" style="transition-delay: 200ms">
+                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <i class="fas fa-comments text-9xl text-white"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-6 border border-white/20">
+                        <i class="fas fa-comment-dots text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Communication</h3>
+                    <p class="text-secondary text-sm uppercase tracking-wider font-semibold mb-6">The Bridge</p>
+                    <div class="text-gray-300 space-y-4 flex-grow relative z-10">
+                        <p>Many relationships struggle not because of lack of love, but because of lack of communication.</p>
+                        <p>Healthy communication means expressing your feelings honestly, listening without defensiveness, and resolving conflicts with respect.</p>
+                        <p class="font-medium text-white">Communication transforms relationships.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services / What I Do -->
-    <section id="services" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">How I Help</h2>
-                <div class="w-16 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
-            </div>
-
-            <!-- Who I Help -->
-            <div class="mb-20 reveal">
-                <div class="glass rounded-2xl p-8 border border-white/5 bg-gradient-to-br from-white/5 to-transparent">
-                    <h3 class="text-2xl font-bold mb-6 text-center">Is this you?</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                        <div class="p-4">
-                            <i class="fas fa-user-astronaut text-2xl text-gray-400 mb-3"></i>
-                            <p class="text-gray-300">Think deeply but feel stuck</p>
-                        </div>
-                        <div class="p-4">
-                            <i class="fas fa-layer-group text-2xl text-gray-400 mb-3"></i>
-                            <p class="text-gray-300">Professional with mental overload</p>
-                        </div>
-                        <div class="p-4">
-                            <i class="fas fa-pen-nib text-2xl text-gray-400 mb-3"></i>
-                            <p class="text-gray-300">Creator blocked by fear</p>
-                        </div>
-                        <div class="p-4">
-                            <i class="fas fa-heart-broken text-2xl text-gray-400 mb-3"></i>
-                            <p class="text-gray-300">Rebuilding after burnout</p>
-                        </div>
-                    </div>
-                    <p class="text-center mt-8 text-primary font-medium">If you feel life is close but untouchable — you’re not alone.</p>
-                </div>
-            </div>
-
-            <!-- Offerings -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="glass p-8 rounded-2xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 reveal">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i class="fas fa-comments text-9xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">1:1 Clarity Sessions</h3>
-                    <p class="text-gray-400 mb-6 min-h-[80px]">Short, focused conversations that reduce overthinking and restore direction.</p>
-                    <ul class="space-y-2 mb-8 text-sm text-gray-300">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Calm anxiety</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Fix decision fatigue</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Remove self-doubt</li>
-                    </ul>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="glass p-8 rounded-2xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 100ms">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i class="fas fa-laptop-code text-9xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Tools for the Mind</h3>
-                    <p class="text-gray-400 mb-6 min-h-[80px]">Simple digital tools designed to help you focus, reflect, and calm down.</p>
-                    <ul class="space-y-2 mb-8 text-sm text-gray-300">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Practice gratitude</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Regain focus</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Reflect with honesty</li>
-                    </ul>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="glass p-8 rounded-2xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 200ms">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i class="fas fa-pencil-alt text-9xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Writing & Frameworks</h3>
-                    <p class="text-gray-400 mb-6 min-h-[80px]">Essays and guides on rebuilding life from survival mode.</p>
-                    <ul class="space-y-2 mb-8 text-sm text-gray-300">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Clarity over chaos</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Execution without burnout</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i> Freedom as a practice</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Work With Me / Contact -->
-    <section id="contact" class="py-24 relative bg-gradient-to-t from-black/60 to-transparent">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                <!-- Left Side: Options -->
+    <!-- Section: What You Will Learn Here -->
+    <section class="py-24 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="reveal">
-                    <h2 class="text-4xl font-bold mb-8">Work With Me</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">What You Will Learn Here</h2>
+                    <p class="text-xl text-gray-300 mb-8">Through my content, I share insights about:</p>
                     
-                    <div class="space-y-6">
-                        <div class="p-6 glass rounded-xl border-l-4 border-primary hover:bg-white/5 transition-colors cursor-pointer">
-                            <h3 class="font-bold text-lg mb-1">Option 1: 15‑Minute Mind Reset</h3>
-                            <p class="text-gray-400 text-sm">A short session to calm the mind and clarify the next step.</p>
-                        </div>
-
-                        <div class="p-6 glass rounded-xl border-l-4 border-secondary hover:bg-white/5 transition-colors cursor-pointer">
-                            <h3 class="font-bold text-lg mb-1">Option 2: Deep Clarity Session (45–60 min)</h3>
-                            <p class="text-gray-400 text-sm">For decision‑making, life direction, and emotional regulation.</p>
-                        </div>
-
-                        <div class="p-6 glass rounded-xl border-l-4 border-purple-500 hover:bg-white/5 transition-colors cursor-pointer">
-                            <h3 class="font-bold text-lg mb-1">Option 3: Custom Tools</h3>
-                            <p class="text-gray-400 text-sm">Personalized prompts, frameworks, or clarity systems.</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-12">
-                        <h3 class="font-bold text-xl mb-4 text-white">A Note on Results</h3>
-                        <div class="quote-border pl-6 py-2">
-                            <p class="text-gray-300 italic mb-4">
-                                "I don’t promise miracles. I promise presence, honesty, clarity, and grounded next steps. Real change is quiet at first."
-                            </p>
-                        </div>
-                        <div class="mt-6">
-                            <a href="{{ url('/healing-form') }}" class="inline-flex items-center gap-2 text-secondary hover:text-white transition-colors font-medium">
-                                Fill Pre-Session Form <i class="fas fa-arrow-right"></i>
+                    <ul class="space-y-4 font-medium text-lg text-white">
+                        <li class="flex items-center gap-4 group">
+                            <span class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-dark transition-colors"><i class="fas fa-check text-sm"></i></span>
+                            relationship psychology
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <span class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-dark transition-colors"><i class="fas fa-check text-sm"></i></span>
+                            emotional maturity
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <span class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-dark transition-colors"><i class="fas fa-check text-sm"></i></span>
+                            self-respect and boundaries
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <span class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-dark transition-colors"><i class="fas fa-check text-sm"></i></span>
+                            communication in relationships
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <span class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-dark transition-colors"><i class="fas fa-check text-sm"></i></span>
+                            toxic relationship patterns
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <span class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-dark transition-colors"><i class="fas fa-check text-sm"></i></span>
+                            healthy love and connection
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="reveal">
+                    <div class="glass p-10 rounded-3xl border-l-4 border-primary text-center md:text-left">
+                        <h3 class="text-2xl font-bold mb-6 text-white">The goal is simple.</h3>
+                        <p class="text-xl leading-relaxed text-gray-300 italic font-serif">
+                            To help you build relationships that bring <span class="text-secondary font-sans font-bold not-italic">clarity, peace, and growth</span> instead of confusion and emotional chaos.
+                        </p>
+                        <div class="mt-10 pt-8 border-t border-white/10">
+                            <a href="{{ route('insights') }}" class="inline-flex items-center gap-3 text-white font-bold group hover:text-primary transition-colors">
+                                Read the Insights <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Right Side: Contact & Gratitude -->
-                <div class="reveal">
-                    <div class="glass p-8 rounded-2xl mb-8">
-                        <h3 class="text-2xl font-bold mb-6">Request a Session</h3>
-                        <form id="contact-form" class="space-y-4">
-                            @csrf
-                            <div>
-                                <input type="text" id="contact-name" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder-gray-500" placeholder="Your Name" required>
-                            </div>
-                            <div>
-                                <input type="email" id="contact-email" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder-gray-500" placeholder="Email Address" required>
-                            </div>
-                            <div class="relative">
-                                <select id="contact-option" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer">
-                                    <option class="bg-slate-900 text-gray-300" value="" disabled selected>Select an option...</option>
-                                    <option class="bg-slate-900 text-gray-300" value="15-Minute Mind Reset">15-Minute Mind Reset</option>
-                                    <option class="bg-slate-900 text-gray-300" value="Deep Clarity Session">Deep Clarity Session</option>
-                                    <option class="bg-slate-900 text-gray-300" value="Custom Tools">Custom Tools</option>
-                                    <option class="bg-slate-900 text-gray-300" value="Just saying hello">Just saying hello</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-primary">
-                                    <i class="fas fa-chevron-down text-sm"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <textarea id="contact-message" rows="4" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors placeholder-gray-500" placeholder="What's on your mind?" required></textarea>
-                            </div>
-                            <button type="submit" id="submit-btn" class="w-full bg-white text-dark font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                                <span>Send Request</span> <i class="fas fa-paper-plane text-primary text-xl"></i>
-                            </button>
-                            <div id="form-message" class="text-center mt-3 text-sm font-medium"></div>
-                        </form>
-                    </div>
-                    
-                    <div class="text-center md:text-left">
-                        <p class="text-gray-400 text-sm mb-2">Or email me directly:</p>
-                        <a href="mailto:hello@sagarkarmakar.com" class="text-xl font-bold text-white hover:text-primary transition-colors">hello@sagarkarmakar.com</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Gratitude Section -->
-            <div class="mt-24 text-center max-w-2xl mx-auto reveal">
-                <i class="fas fa-infinity text-3xl text-gray-500 mb-6"></i>
-                <p class="text-gray-300 text-lg mb-4">
-                    If you’re reading this, thank you.<br>
-                    This space exists because I chose action over paralysis — one step at a time.
-                </p>
-                <p class="text-gray-400">
-                    If something here resonates, you’re welcome to walk with me for a while.
-                </p>
             </div>
         </div>
     </section>
+
 @endsection
 
 @push('scripts')
 <script>
-    document.getElementById('contact-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const btn = document.getElementById('submit-btn');
-        const msgDiv = document.getElementById('form-message');
-        const originalBtnContent = btn.innerHTML;
-
-        // Disable button and show loading state
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        msgDiv.textContent = '';
-        msgDiv.className = 'text-center mt-3 text-sm font-medium';
-
-        const formData = {
-            name: document.getElementById('contact-name').value,
-            email: document.getElementById('contact-email').value,
-            option: document.getElementById('contact-option').value,
-            message: document.getElementById('contact-message').value,
-            _token: document.querySelector('input[name="_token"]').value
-        };
-
-        try {
-            const response = await fetch('/contact-submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': formData._token
-                },
-                body: JSON.stringify(formData)
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                msgDiv.textContent = result.message || 'Message sent successfully!';
-                msgDiv.classList.add('text-green-400');
-                document.getElementById('contact-form').reset();
-            } else {
-                throw new Error(result.message || 'Failed to send message.');
-            }
-        } catch (error) {
-            msgDiv.textContent = error.message;
-            msgDiv.classList.add('text-red-400');
-        } finally {
-            // Restore button state
-            btn.disabled = false;
-            btn.innerHTML = originalBtnContent;
-        }
-    });
-
-    // Canvas Particle Network (Slightly slower/calmer for this persona)
+    // Canvas Particle Network configured for Teal 950 Theme
     const canvas = document.getElementById('bg-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -445,7 +244,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = '#818cf8'; 
+                ctx.fillStyle = '#14b8a6'; // Teal 500
                 ctx.fill();
             }
             update() {
@@ -460,7 +259,6 @@
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx*dx + dy*dy);
                 
-                // Gentle push away from mouse
                 if (distance < mouse.radius + this.size){
                     if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
                         this.x += 1;
@@ -484,16 +282,14 @@
 
         function init() {
             particlesArray = [];
-            // Fewer particles for a cleaner look
-            let numberOfParticles = (canvas.height * canvas.width) / 12000;
+            let numberOfParticles = (canvas.height * canvas.width) / 10000;
             for (let i = 0; i < numberOfParticles; i++) {
                 let size = (Math.random() * 2) + 0.5;
                 let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
                 let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                // Slower movement
                 let directionX = (Math.random() * 0.4) - 0.2; 
                 let directionY = (Math.random() * 0.4) - 0.2; 
-                let color = '#818cf8';
+                let color = '#14b8a6';
 
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
@@ -508,7 +304,7 @@
                     
                     if (distance < (canvas.width/7) * (canvas.height/7)) {
                         opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = 'rgba(129, 140, 248,' + (opacityValue * 0.5) + ')'; // Lighter lines
+                        ctx.strokeStyle = 'rgba(94, 234, 212,' + (opacityValue * 0.3) + ')'; // Teal 300
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
