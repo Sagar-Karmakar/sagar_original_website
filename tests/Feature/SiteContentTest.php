@@ -93,3 +93,11 @@ it('uses a photo from public/images once it is there', function () {
 it('has no placeholders left on public pages', function (string $page) {
     $this->get($page)->assertOk()->assertDontSee('[your')->assertDontSee('[Your')->assertDontSee('[date]')->assertDontSee('[city]');
 })->with(['/', '/about', '/books', '/call', '/privacy-policy', '/terms-and-conditions', '/refund-policy']);
+
+it('shows Love Rediscovered as coming soon, but not Just The Two Of Us', function () {
+    $html = $this->get('/books')->assertOk()->getContent();
+    [$first, $second] = explode('Love Rediscovered', $html, 2);
+
+    expect(substr_count($html, 'Coming soon'))->toBe(1)
+        ->and(str_contains($second, 'Coming soon'))->toBeTrue();
+});

@@ -44,7 +44,7 @@
 
 /* Text inputs, selects and textareas */
 @utility form-control {
-    @apply w-full rounded-xl border border-line bg-page px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-brand focus:outline-2 focus:outline-brand/20 aria-invalid:border-brand;
+    @apply w-full rounded-xl border border-muted/60 bg-page px-4 py-3 text-base text-ink placeholder:text-muted focus:border-brand focus:outline-2 focus:outline-brand/20 aria-invalid:border-brand;
 }
 
 @layer base {

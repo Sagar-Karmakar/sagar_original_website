@@ -57,7 +57,7 @@
                                             <span aria-hidden="true">{{ $day->day }}</span>
                                         </label>
                                     @else
-                                        <span aria-hidden="true" class="flex h-11 items-center justify-center rounded-[10px] text-muted/50">{{ $day->day }}</span>
+                                        <span aria-hidden="true" class="flex h-11 items-center justify-center rounded-[10px] text-muted">{{ $day->day }}</span>
                                     @endif
                                 @endforeach
                             </div>

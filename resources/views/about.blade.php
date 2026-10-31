@@ -70,10 +70,11 @@
     </section>
 
     <!-- Call to action -->
-    <section class="bg-brandpy-[clamp(3.5rem,7vw,6rem)] text-white">
+    <section class="bg-brand py-[clamp(3.5rem,7vw,6rem)] text-white">
         <div data-reveal class="mx-auto flex max-w-site flex-col items-center gap-5 px-6 text-center">
             <h2 class="font-serif text-h1 font-semibold">Let's talk for 20 minutes.</h2>
-            <x-button :href="route('call')" variant="inverse">Book a free call</x-button>
+            <p class="max-w-150 text-xl">Free, online, in English, Hindi or Bengali. No pressure, no hard selling.</p>
+            <x-button :href="route('call')" variant="inverse" size="lg">Book your free call</x-button>
         </div>
     </section>
 
