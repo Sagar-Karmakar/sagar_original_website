@@ -16,7 +16,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('admin:create {email? : Leave out to use ADMIN_EMAIL and ADMIN_PASSWORD from .env} {--name=Sagar Karmakar}', function (?string $email = null) {
+Artisan::command('admin:create {email? : Leave out to use ADMIN_EMAIL and ADMIN_PASSWORD from .env} {--name=Sagar Karmakar} {--password= : Set the password here instead of being asked}', function (?string $email = null) {
     if ($email === null) {
         ['email' => $email, 'password' => $password] = config('site.admin');
 
@@ -26,7 +26,7 @@ Artisan::command('admin:create {email? : Leave out to use ADMIN_EMAIL and ADMIN_
             return 1;
         }
     } else {
-        $password = $this->secret('Choose a password (at least 10 characters)');
+        $password = $this->option('password') ?: $this->secret('Choose a password (at least 10 characters; it stays hidden while you type)');
     }
 
     if (strlen((string) $password) < 10) {

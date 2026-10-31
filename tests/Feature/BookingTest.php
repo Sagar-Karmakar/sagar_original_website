@@ -146,3 +146,10 @@ it('lets the admin set weekly hours and days off', function () {
     $this->actingAs($admin)->post(route('admin.blocked-dates.store'), ['date' => '2026-11-09'])->assertSessionHasNoErrors();
     expect(openTimes('2026-11-09'))->toBe([]);
 });
+
+it('creates the admin login from the command line', function () {
+    $this->artisan('admin:create', ['email' => 'sagar@example.com', '--password' => 'short'])->assertFailed();
+    $this->artisan('admin:create', ['email' => 'sagar@example.com', '--password' => 'a-long-password'])->assertSuccessful();
+
+    $this->post('/admin/login', ['email' => 'sagar@example.com', 'password' => 'a-long-password'])->assertRedirect('/admin');
+});

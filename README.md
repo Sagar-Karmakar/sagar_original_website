@@ -86,7 +86,9 @@ The admin works as a phone app, with a notification for every new booking and ev
 
 The notification keys are `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` in `.env`. Create them with `php artisan push:keys`. If you change them, turn notifications on again on each phone.
 
-**The Android app** (`android/`) is a Trusted Web Activity: a small app that opens `https://sagarkarmakar.com/admin` full screen in Chrome's engine. Notifications from the site show up as the app's own. Because it opens the live site, it only works fully once the site is live there. Before that, test on the phone with the Chrome install, through the `Local Server` link.
+**Where things are:** the Android project (`android/`) lives only in the `new-site-sagar-for-couples` branch. **`main` holds only the website**, because `main` is what gets deployed to the server. The finished app file, which the admin download serves, is `resources/downloads/sagar-admin.apk`, in both branches.
+
+**The Android app** is a Trusted Web Activity: a small app that opens `https://sagarkarmakar.com/admin` full screen in Chrome's engine. Notifications from the site show up as the app's own. Because it opens the live site, it only works fully once the site is live there. Before that, test on the phone with the Chrome install, through the `Local Server` link.
 
 - `public/.well-known/assetlinks.json` proves to Android that the app and the site belong together. This is what hides the address bar. It holds the signing key's fingerprint, so it must go live with the site.
 - **The signing key** is `android/sagar-admin.keystore`, and its passwords are in `android/keystore.properties`. Neither is in git. **Back both up somewhere safe** (e.g. Google Drive). Every future version of the app must be signed with this same key, or phones won't install it as an update.
@@ -95,9 +97,9 @@ The notification keys are `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` in `.env`. 
   cd android
   set JAVA_HOME=C:\Program Files\Android\Android Studio\jbr
   gradlew assembleRelease
-  copy app\build\outputs\apk\release\app-release.apk sagar-admin.apk
+  copy app\build\outputs\apk\release\app-release.apk ..\resources\downloads\sagar-admin.apk
   ```
-  The admin download page serves `android/sagar-admin.apk`.
+  Commit the new `resources/downloads/sagar-admin.apk` on the branch. When merging into `main`, keep `android/` out.
 - **To use another domain:** change `sagarkarmakar.com` in `android/app/src/main/AndroidManifest.xml` and `android/app/src/main/res/values/strings.xml`, then rebuild.
 
 ---

@@ -18,9 +18,10 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class PhoneAppController extends Controller
 {
     /**
-     * The Android app, built from android/ (see README → Android app).
+     * The built Android app. Its source (android/) is only in the new-site-sagar-for-couples
+     * branch, never on main or the server (see README → Android app).
      */
-    public const APK_PATH = 'android/sagar-admin.apk';
+    public const APK_PATH = 'resources/downloads/sagar-admin.apk';
 
     public function show(PushNotifier $push): View
     {
