@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Sagar Admin</string>
+    <string name="launch_url">https://sagarkarmakar.com/admin</string>
+    <!-- Must match public/.well-known/assetlinks.json on the site -->
+    <string name="asset_statements">[{\"relation\": [\"delegate_permission/common.handle_all_urls\"], \"target\": {\"namespace\": \"web\", \"site\": \"https://sagarkarmakar.com\"}}]</string>
+</resources>

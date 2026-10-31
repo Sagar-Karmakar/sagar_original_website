@@ -2,7 +2,7 @@
 
 The website for **Back to Us**, a 4-week online program for married couples, coached by Sagar Karmakar.
 
-Built with Laravel 12, Blade, Tailwind CSS v4 (through Vite), GSAP and MySQL. It includes its own booking system for the free call, in place of Calendly or Cal.com.
+Built with Laravel 13 (needs PHP 8.3 or newer), Blade, Tailwind CSS v4 (through Vite), GSAP and MySQL. It includes its own booking system for the free call, in place of Calendly or Cal.com, and an Android app for the admin with a notification for every booking.
 
 **Design source:** https://claude.ai/code/artifact/8e4272f4-d665-49b6-8199-16418df6331d
 (desktop pages, phone views and a style guide on one canvas)
@@ -73,6 +73,32 @@ ADMIN_PASSWORD=a-long-password
 After setting or changing these, run `php artisan admin:create` to create the login or update its password. `php artisan db:seed` does the same. To use a different email without touching `.env`, run `php artisan admin:create you@example.com` and type a password when asked.
 
 On the live server, remove `ADMIN_PASSWORD` from `.env` once the login exists. The login keeps working, because the password is stored hashed in the database.
+
+---
+
+## Phone app and Android app
+
+The admin works as a phone app, with a notification for every new booking and every cancellation by a couple. It uses the browser's own push service, so there's no Firebase or Google account to set up. Everything is on **Admin → Phone app**:
+
+1. **Install it:** either download the Android app (`.apk`) from that page and install it, or open the admin in Chrome on the phone and tap **Install the app**.
+2. **Turn on notifications:** in the app, tap **Turn on notifications** and allow them.
+3. **Test it:** tap **Send a test notification**.
+
+The notification keys are `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` in `.env`. Create them with `php artisan push:keys`. If you change them, turn notifications on again on each phone.
+
+**The Android app** (`android/`) is a Trusted Web Activity: a small app that opens `https://sagarkarmakar.com/admin` full screen in Chrome's engine. Notifications from the site show up as the app's own. Because it opens the live site, it only works fully once the site is live there. Before that, test on the phone with the Chrome install, through the `Local Server` link.
+
+- `public/.well-known/assetlinks.json` proves to Android that the app and the site belong together. This is what hides the address bar. It holds the signing key's fingerprint, so it must go live with the site.
+- **The signing key** is `android/sagar-admin.keystore`, and its passwords are in `android/keystore.properties`. Neither is in git. **Back both up somewhere safe** (e.g. Google Drive). Every future version of the app must be signed with this same key, or phones won't install it as an update.
+- **To build a new version:** raise `versionCode` and `versionName` in `android/app/build.gradle.kts`, then:
+  ```
+  cd android
+  set JAVA_HOME=C:\Program Files\Android\Android Studio\jbr
+  gradlew assembleRelease
+  copy app\build\outputs\apk\release\app-release.apk sagar-admin.apk
+  ```
+  The admin download page serves `android/sagar-admin.apk`.
+- **To use another domain:** change `sagarkarmakar.com` in `android/app/src/main/AndroidManifest.xml` and `android/app/src/main/res/values/strings.xml`, then rebuild.
 
 ---
 
@@ -195,6 +221,7 @@ Contact links and the offer live in `config/site.php`, read from `.env`:
 | `DISCORD_BOOKING_WEBHOOK` | Discord webhook URL (channel settings → Integrations → Webhooks → Copy Webhook URL). Each booking and cancellation is posted there with all the couple's details. Check it with `php artisan discord:test` |
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | The `/admin` login (see Admin login) |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Optional, for Google Calendar sync (see Google Calendar) |
+| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | Keys for phone notifications. Create them with `php artisan push:keys` (see Phone app) |
 | `MAIL_USERNAME`, `MAIL_PASSWORD` | Your Hostinger mailbox address (e.g. `contact@sagarkarmakar.com`) and its password. Emails are sent only once these are filled in |
 | `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME` | Who emails come from. The address must be the same Hostinger mailbox as `MAIL_USERNAME`, or Hostinger refuses to send |
 
@@ -265,7 +292,7 @@ Booking emails are really sent offline too, through Hostinger, once `MAIL_USERNA
 
 ## Going online
 
-1. Create a MySQL database on your host and note its name, user and password.
+1. Set the hosting's PHP version to 8.3 or newer (Laravel 13 needs it). Create a MySQL database and note its name, user and password. Make sure the site has an SSL certificate (https). Phone notifications and the Android app need it.
 2. On the server, set in `.env`: `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://sagarkarmakar.com`, the `DB_` values from step 1, the Hostinger mail settings (copy the `MAIL_` lines from your local `.env`), and the booking settings above. Then run `php artisan mail:test` on the server.
 3. Run `npm run build` locally and upload `public/build` (it isn't in git).
 4. On the server:
@@ -280,4 +307,4 @@ Booking emails are really sent offline too, through Hostinger, once `MAIL_USERNA
 6. In the live admin, connect Google Calendar if you use it.
 7. Book a test call on the live site, check both emails arrive (and the calendar event), then cancel it.
 
-Don't upload `node_modules/`, `Local Server/` or your local `.env`.
+Don't upload `node_modules/`, `Local Server/`, your local `.env` or the Android signing key.

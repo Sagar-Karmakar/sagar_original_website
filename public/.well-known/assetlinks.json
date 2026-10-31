@@ -1,0 +1,10 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.sagarkarmakar.admin",
+            "sha256_cert_fingerprints": ["B6:2C:40:21:8B:49:0D:8B:33:AD:3A:37:3B:25:8D:E2:2A:09:42:56:5F:20:EA:27:22:9C:20:39:FA:46:DA:10"]
+        }
+    }
+]
