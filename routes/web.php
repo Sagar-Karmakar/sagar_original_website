@@ -2,9 +2,14 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\BookingController;
+use App\Models\Review;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', fn () => view('welcome', [
+    'offer' => Setting::offer(),
+    'reviews' => Review::published()->latest()->limit(6)->get(),
+]))->name('home');
 Route::view('/about', 'about')->name('about');
 Route::view('/books', 'books')->name('books');
 
@@ -36,6 +41,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/availability', [Admin\AvailabilityController::class, 'update'])->name('availability.update');
     Route::post('/blocked-dates', [Admin\AvailabilityController::class, 'blockDate'])->name('blocked-dates.store');
     Route::delete('/blocked-dates/{blockedDate}', [Admin\AvailabilityController::class, 'unblockDate'])->name('blocked-dates.destroy');
+    Route::get('/offer', [Admin\OfferController::class, 'edit'])->name('offer');
+    Route::put('/offer', [Admin\OfferController::class, 'update'])->name('offer.update');
+    Route::get('/reviews', [Admin\ReviewController::class, 'index'])->name('reviews');
+    Route::post('/reviews', [Admin\ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/reviews/{review}/edit', [Admin\ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::put('/reviews/{review}', [Admin\ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [Admin\ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/app', [Admin\PhoneAppController::class, 'show'])->name('app');
     Route::get('/app/android', [Admin\PhoneAppController::class, 'downloadApk'])->name('app.apk');
     Route::post('/push-subscriptions', [Admin\PhoneAppController::class, 'subscribe'])->name('push.subscribe');

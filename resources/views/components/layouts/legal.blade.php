@@ -1,4 +1,4 @@
-@props(['title', 'updated' => '[date]'])
+@props(['title', 'updated' => '31 October 2026'])
 
 @php
     $pages = ['privacy' => 'Privacy', 'terms' => 'Terms', 'refund' => 'Refund policy'];
@@ -19,8 +19,6 @@
                 <p class="text-muted">Last updated: {{ $updated }}</p>
 
                 {{ $slot }}
-
-                <p class="mt-6 rounded-xl bg-panel px-5 py-4 text-small text-muted">Template only: check the final wording with a lawyer or CA before publishing.</p>
             </article>
         </div>
     </div>

@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Models\Booking;
 use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Support\Facades\URL;
@@ -20,7 +21,11 @@ class BookingConfirmed extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: 'Your free call with Sagar is booked');
+        // Replies go to the inbox people write to (contact@), not the sending address
+        return new Envelope(
+            replyTo: [new Address(config('site.email'), 'Sagar Karmakar')],
+            subject: 'Your free call with Sagar is booked',
+        );
     }
 
     public function content(): Content

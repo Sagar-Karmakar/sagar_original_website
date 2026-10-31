@@ -13,6 +13,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ? "{$title} · Sagar for Couples" : 'Sagar for Couples' }}</title>
     <meta name="description" content="{{ $description }}">
+    {{-- How links look when shared on WhatsApp, Facebook and others --}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sagar for Couples">
+    <meta property="og:title" content="{{ $title ?? 'Sagar for Couples' }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    @if ($shareImage = \App\Support\SiteImage::url('share'))
+        <meta property="og:image" content="{{ $shareImage }}">
+        <meta name="twitter:card" content="summary_large_image">
+    @endif
     <meta name="color-scheme" content="light">
     <meta name="theme-color" content="#fdf4f2">
     <link rel="preconnect" href="https://fonts.googleapis.com">

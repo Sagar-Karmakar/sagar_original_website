@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use App\Models\Booking;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 
@@ -18,9 +19,15 @@ class BookingCancelled extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: $this->byClient
-            ? "Cancelled: {$this->booking->couple()}, {$this->booking->when()}"
-            : 'Your free call with Sagar is cancelled');
+        return new Envelope(
+            // Sagar's copy replies to the couple; the couple's copy replies to contact@
+            replyTo: $this->byClient
+                ? [new Address($this->booking->email, $this->booking->name)]
+                : [new Address(config('site.email'), 'Sagar Karmakar')],
+            subject: $this->byClient
+                ? "Cancelled: {$this->booking->couple()}, {$this->booking->when()}"
+                : 'Your free call with Sagar is cancelled',
+        );
     }
 
     public function content(): Content

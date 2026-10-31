@@ -6,10 +6,20 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 
 class Booking extends Model
 {
-    use HasUlids;
+    use HasUlids, Prunable;
+
+    /**
+     * Bookings are deleted 12 months after the call, as the privacy policy promises
+     * (`php artisan model:prune`, run daily by the scheduler).
+     */
+    public function prunable(): Builder
+    {
+        return static::where('starts_at', '<', now()->subMonths(12));
+    }
 
     /**
      * The attributes that are mass assignable.

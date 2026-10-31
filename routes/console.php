@@ -7,6 +7,10 @@ use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Schedule;
+
+// Deletes bookings older than 12 months (see Booking::prunable). Needs the server cron in README → Going online.
+Schedule::command('model:prune')->daily();
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());

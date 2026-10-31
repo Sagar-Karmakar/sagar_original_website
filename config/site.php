@@ -34,14 +34,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Back to Us founding offer
+    | Back to Us offer
     |--------------------------------------------------------------------------
+    |
+    | Starting values only: change them in Admin → Offer. Leave spots_total
+    | empty there to stop showing spots.
+    |
     */
 
-    'founding' => [
-        'price' => '₹4,999',
-        'spots' => 5,
+    'offer' => [
+        'label' => 'Founding couples',
+        'price' => 4999,
+        'spots_total' => 5,
         'spots_left' => 5,
+        'note_title' => 'Why so low?',
+        'note' => 'You’d be one of my first couples, and I’ll ask for your honest feedback in return. After that, the price goes up.',
     ],
 
 ];

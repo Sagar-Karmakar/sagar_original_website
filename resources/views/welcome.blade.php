@@ -1,5 +1,3 @@
-@php($founding = config('site.founding'))
-
 <x-layouts.app nav="home" sticky-cta>
 
     <!-- Hero -->
@@ -27,9 +25,9 @@
             </div>
 
             <div class="relative min-w-0 flex-[1_1_360px]">
-                <x-photo-placeholder label="Sagar and Arpita, laughing over chai at home" hint="A real photo, warm light, no studio look" class="aspect-[4/5]">
+                <x-photo name="home-hero" alt="Sagar and Arpita, laughing over chai at home" hint="A real photo, warm light, no studio look" class="aspect-[4/5]" eager>
                     <x-icon name="chai" class="size-10 text-brand" stroke-width="1.5" />
-                </x-photo-placeholder>
+                </x-photo>
                 <div class="absolute bottom-7 -left-3 flex max-w-60 flex-col gap-0.5 rounded-2xl border border-line bg-surface px-[18px] py-3.5">
                     <span class="text-xs font-bold tracking-[0.08em] text-brand uppercase">Tonight's game · 2 min</span>
                     <span class="font-serif text-xl font-semibold">Chai Toast</span>
@@ -171,14 +169,20 @@
                 </div>
 
                 <div data-reveal class="flex min-w-0 flex-[1_1_360px] flex-col gap-3.5 rounded-[20px] border-2 border-brand bg-surface p-8">
-                    <p class="self-start rounded-full bg-brand px-3 py-1 text-[13px] font-bold tracking-[0.06em] text-white uppercase">Founding couples</p>
-                    <p class="font-serif text-[56px] leading-none font-semibold">{{ $founding['price'] }}</p>
+                    <p class="self-start rounded-full bg-brand px-3 py-1 text-[13px] font-bold tracking-[0.06em] text-white uppercase">{{ $offer['label'] }}</p>
+                    <p class="font-serif text-[56px] leading-none font-semibold">₹{{ number_format($offer['price']) }}</p>
                     <p class="text-muted">per couple, for the whole 4 weeks</p>
                     <p class="rounded-xl bg-page px-3.5 py-3 text-small">For comparison, one couple session in India usually costs ₹2,800–3,500. Back to Us gives you 4 sessions, daily games and support between them.</p>
-                    <p class="self-start rounded-full bg-panel px-3.5 py-1.5 text-small font-bold">Spots left: {{ $founding['spots_left'] }} of {{ $founding['spots'] }}</p>
+                    @if ($offer['spots_total'])
+                        <p class="self-start rounded-full bg-panel px-3.5 py-1.5 text-small font-bold">
+                            {{ $offer['spots_left'] ? "Spots left: {$offer['spots_left']} of {$offer['spots_total']}" : 'All spots are taken for now' }}
+                        </p>
+                    @endif
                     <x-button :href="route('call')" size="lg" class="w-full">Start with a free call</x-button>
-                    <p class="text-small text-muted"><strong class="text-ink">Why so low?</strong> You'd be one of my first {{ $founding['spots'] }} couples, and I'll ask for your honest feedback in return. After that, the price goes up.</p>
-                    <p class="text-small text-muted"><strong class="text-ink">Refund rule:</strong> [your refund rule, in one plain sentence]</p>
+                    @if ($offer['note'])
+                        <p class="text-small text-muted">@if ($offer['note_title'])<strong class="text-ink">{{ $offer['note_title'] }}</strong> @endif{{ $offer['note'] }}</p>
+                    @endif
+                    <p class="text-small text-muted"><strong class="text-ink">Refund rule:</strong> if Back to Us doesn't feel worth it after the first two weeks, tell me and I'll refund everything except any payment fee (UPI has none). <a href="{{ route('refund') }}" class="underline hover:text-brand">Details</a></p>
                 </div>
             </div>
 
@@ -228,35 +232,37 @@
     <section class="border-y border-line bg-surface py-section">
         <div class="mx-auto flex max-w-site flex-wrap items-center gap-12 px-6">
             <div data-reveal class="min-w-0 flex-[1_1_360px]">
-                <x-photo-placeholder label="Sagar and Arpita together" class="aspect-square" />
+                <x-photo name="coach" alt="Sagar and Arpita together" class="aspect-square" />
             </div>
             <div data-reveal class="flex min-w-0 flex-[1_1_480px] flex-col gap-4">
                 <x-eyebrow>Meet your coach</x-eyebrow>
                 <h2 class="font-serif text-h2 font-semibold">Hi, I'm Sagar Karmakar.</h2>
                 <p>I'm a couples coach, and I'm married to Arpita. I do this work because of my own marriage, and because of the marriages around me where two good people quietly became room partners.</p>
                 <p>I love the science of relationships, so I'll always tell you what research shows and what it doesn't. And I'm honest about my limits: I'm a coach, not a therapist, and I'll never promise to save your marriage. I'll give you simple things to do, and I'll check that you do them.</p>
-                <p class="text-muted">[One true moment from your own marriage, in 2 or 3 lines]</p>
+                <p>Arpita and I still fight sometimes. The difference is that our fights now end quickly, and we come out of them closer. We didn't start like this: we were a normal couple, and we got here by choosing to learn.</p>
                 <a href="{{ route('about') }}" class="self-start font-semibold text-brand underline hover:decoration-2">Read my story</a>
             </div>
         </div>
     </section>
 
-    <!-- Reviews -->
-    <section class="py-section">
-        <div class="mx-auto flex max-w-site flex-col gap-8 px-6">
-            <h2 data-reveal class="font-serif text-h2 font-semibold">What couples say</h2>
-            <div data-stagger class="grid grid-fit-70 gap-5">
-                @foreach (['from a free session', 'from a free session', 'founding couple'] as $source)
-                    <figure class="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-7">
-                        <span aria-hidden="true" class="font-serif text-5xl leading-[0.6] text-brand">“</span>
-                        <blockquote class="text-lg">[Review in the couple's own words, shared with written consent]</blockquote>
-                        <figcaption class="text-sm text-muted">A couple from [city] · {{ $source }}</figcaption>
-                    </figure>
-                @endforeach
+    <!-- Reviews (added in Admin → Reviews; hidden until there's one to show) -->
+    @if ($reviews->isNotEmpty())
+        <section class="py-section">
+            <div class="mx-auto flex max-w-site flex-col gap-8 px-6">
+                <h2 data-reveal class="font-serif text-h2 font-semibold">What couples say</h2>
+                <div data-stagger class="grid grid-fit-70 gap-5">
+                    @foreach ($reviews as $review)
+                        <figure class="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-7">
+                            <span aria-hidden="true" class="font-serif text-5xl leading-[0.6] text-brand">“</span>
+                            <blockquote class="text-lg whitespace-pre-line">{{ $review->quote }}</blockquote>
+                            <figcaption class="text-sm text-muted">{{ $review->couple }}@if ($review->context) · {{ $review->context }}@endif</figcaption>
+                        </figure>
+                    @endforeach
+                </div>
+                <p class="text-small text-muted">Names are hidden. Every couple is different, and no result is promised.</p>
             </div>
-            <p class="text-small text-muted">Names are hidden. Every couple is different, and no result is promised.</p>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <!-- Who it's for -->
     <section class="pb-section">
@@ -291,7 +297,7 @@
                     'We\'re both so busy. Will we have time?' => 'That\'s exactly who this is for. The daily game takes 2 minutes, and sessions are online at times that suit working couples, evenings and weekends included.',
                     'We don\'t fight much. We\'ve just drifted. Is this for us?' => 'Yes. That\'s the “room partner” stage, and it\'s one of the most common things I see. Week 1 is all about friendship and play.',
                     'What if my partner won\'t come?' => 'Very common. Many partners say yes to a game before they say yes to coaching. Try one 2-minute game at home, lightly, with no talk of “working on us”. If they get curious, the free call is open to you both. It can also be with just one of you.',
-                    'What if it doesn\'t help?' => 'Every couple is different, and I can\'t promise results. That\'s why the first call is free, I\'ll tell you honestly if it\'s not the right fit, and there\'s a clear refund rule: [your refund rule].',
+                    'What if it doesn\'t help?' => 'Every couple is different, and I can\'t promise results. That\'s why the first call is free, I\'ll tell you honestly if it\'s not the right fit, and the refund rule is simple: if Back to Us doesn\'t feel worth it after the first two weeks, I refund everything except any fee the payment provider keeps. No long questions.',
                     'Is this therapy?' => 'No. This is coaching. I don\'t diagnose or treat any condition. If you need a therapist or a doctor, I\'ll tell you honestly and help you find one.',
                     'Is it private?' => 'Yes. What you share stays between us. I never share a couple\'s story without written permission, and names are always hidden.',
                     'Which language, and where?' => 'English, Hindi or Hinglish, and Bengali. Everything is online, so you can join from anywhere.',
@@ -314,7 +320,12 @@
                 <x-button :href="route('call')" variant="inverse" size="lg">Book your free 20-minute call</x-button>
                 <x-button :href="config('site.whatsapp_url')" variant="outline-inverse" size="lg">Ask on WhatsApp</x-button>
             </div>
-            <p class="text-small text-white/85">{{ $founding['spots'] }} founding spots · {{ $founding['price'] }} per couple</p>
+            <p class="text-small text-white/85">
+                {{ $offer['label'] }} · ₹{{ number_format($offer['price']) }} per couple
+                @if ($offer['spots_total'])
+                    · {{ $offer['spots_left'] ? "{$offer['spots_left']} of {$offer['spots_total']} spots left" : 'all spots taken for now' }}
+                @endif
+            </p>
         </div>
     </section>
 

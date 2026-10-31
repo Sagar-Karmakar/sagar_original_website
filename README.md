@@ -235,28 +235,42 @@ php artisan mail:test you@example.com
 
 If it fails, the message says why. "Authentication failed" means the username or password is wrong. "Client host rejected: Access denied" means the username is empty.
 
-To change the founding price or spots left, edit `founding` in `config/site.php`.
+To change the price or spots, use Admin → Offer.
 
 ---
 
-## Before going live: fill in
+## Photos
 
-Placeholders from the design are in square brackets on the pages:
+The site picks photos up from `public/images` by file name. Drop a file in with the right name (`.jpg`, `.png` or `.webp`) and it replaces the dashed placeholder. No code change is needed.
 
-- [ ] Photos: Sagar and Arpita (home hero, home coach section, about)
-- [ ] Your refund rule (home price card, home FAQ, refund policy)
-- [ ] One true moment from your marriage (home) and your story (about)
-- [ ] Timeline years (about)
-- [ ] Reviews and cities, shared with written consent (home)
-- [ ] Legal details: date, notes kept, payment provider, cookies, governing law. Then have a lawyer or CA check all three legal pages and remove the "Template only" note
-- [ ] Book covers, when ready (books)
+| File name | Where it shows | Shape |
+| --- | --- | --- |
+| `home-hero` | Home, top | Upright 4:5, at least 1200×1500 |
+| `coach` | Home, "Meet your coach" | Square, at least 1200×1200 |
+| `about` | About, top | Upright 4:5, at least 1200×1500 |
+| `share` | The preview when a link is shared on WhatsApp or Facebook | 1200×630 |
+| `book-just-the-two-of-us`, `book-love-rediscovered` | Books page covers | 2:3, at least 800×1200 |
 
-Search for `[` in `resources/views` to find them all. Also set up:
+Keep each photo under about 500 KB (`.webp` or a compressed `.jpg`) so pages stay fast on phones.
 
+---
+
+## Offer and reviews
+
+- **Admin → Offer:** the price card on the home page. Change the label (e.g. "Founding couples"), the price, total spots and spots left, and the note under the price. Leave total spots empty to stop showing spots. The starting values are in `config/site.php`.
+- **Admin → Reviews:** add couples' reviews (no names, e.g. "A couple from Kolkata"), and show, hide, edit or delete them. The home page shows the newest 6. "What couples say" stays hidden until at least one is shown. Each review needs a tick confirming the couple gave written permission.
+
+---
+
+## Before going live
+
+- [ ] Photos in `public/images` (see Photos)
 - [ ] Your admin login: `ADMIN_EMAIL` and `ADMIN_PASSWORD` in `.env`, then `php artisan admin:create`
+- [ ] Your weekly hours and days off in Admin → Availability, the offer in Admin → Offer, reviews in Admin → Reviews
+- [ ] Your Hostinger `MAIL_USERNAME` and `MAIL_PASSWORD` in `.env`, then `php artisan mail:test`
+- [ ] `DISCORD_BOOKING_WEBHOOK` in `.env`, then `php artisan discord:test`
 - [ ] Optional: Google Calendar (see Google Calendar)
-- [ ] Your weekly hours and days off in `/admin/availability`
-- [ ] `BOOKING_MEETING_URL`, and your Hostinger `MAIL_USERNAME` and `MAIL_PASSWORD`, in `.env`. Then run `php artisan mail:test`
+- [ ] Recommended: have a lawyer or CA read the three legal pages
 
 ---
 
@@ -303,6 +317,12 @@ Booking emails are really sent offline too, through Hostinger, once `MAIL_USERNA
    php artisan admin:create
    ```
    Then remove `ADMIN_PASSWORD` from the server's `.env`, and run `php artisan optimize` again.
+
+   Add a cron job in Hostinger (hPanel → Advanced → Cron Jobs) that runs every minute:
+   ```
+   cd /path/to/the/site && php artisan schedule:run
+   ```
+   It deletes bookings older than 12 months each day, as the privacy policy promises.
 5. Point the domain's web root at the `public/` folder.
 6. In the live admin, connect Google Calendar if you use it.
 7. Book a test call on the live site, check both emails arrive (and the calendar event), then cancel it.

@@ -24,8 +24,8 @@
             <a href="{{ route('admin.bookings') }}" class="font-serif text-xl font-semibold">Sagar <span class="text-brand">admin</span></a>
             @auth
                 <nav aria-label="Admin" class="flex flex-wrap items-center gap-x-5 gap-y-2">
-                    @foreach (['admin.bookings' => 'Bookings', 'admin.availability' => 'Availability', 'admin.app' => 'Phone app'] as $route => $label)
-                        <a href="{{ route($route) }}" @if (request()->routeIs($route)) aria-current="page" @endif
+                    @foreach (['admin.bookings' => 'Bookings', 'admin.availability' => 'Availability', 'admin.reviews' => 'Reviews', 'admin.offer' => 'Offer', 'admin.app' => 'Phone app'] as $route => $label)
+                        <a href="{{ route($route) }}" @if (request()->routeIs($route, "{$route}.*")) aria-current="page" @endif
                            class="text-muted hover:text-ink aria-[current=page]:font-semibold aria-[current=page]:text-brand">{{ $label }}</a>
                     @endforeach
                     <a href="{{ route('home') }}" class="text-muted hover:text-ink">View site</a>
