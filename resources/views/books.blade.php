@@ -32,10 +32,10 @@
                 ] as $book)
                     <article class="flex flex-wrap items-start gap-6 rounded-[20px] border border-line bg-surface p-7">
                         @if ($cover = \App\Support\SiteImage::url($book['image']))
-                            <img src="{{ $cover }}" alt="Cover of {{ $book['title'] }}" loading="lazy" class="aspect-[2/3] w-[150px] flex-none rounded-lg object-cover">
+                            <img src="{{ $cover }}" alt="Cover of {{ $book['title'] }}" loading="lazy" class="aspect-[2/3] w-[180px] flex-none rounded-lg object-cover shadow-md">
                         @else
-                            <div role="img" aria-label="Cover placeholder: {{ $book['title'] }}" class="{{ $book['cover'] }} flex aspect-[2/3] w-[150px] flex-none flex-col justify-between rounded-lg p-4">
-                                <span class="font-serif text-xl leading-[1.15] font-semibold">{{ $book['title'] }}</span>
+                            <div role="img" aria-label="Cover placeholder: {{ $book['title'] }}" class="{{ $book['cover'] }} flex aspect-[2/3] w-[180px] flex-none flex-col justify-between rounded-lg p-4">
+                                <span class="font-serif text-lg leading-[1.15] font-semibold break-words">{{ $book['title'] }}</span>
                                 <span class="text-xs">Sagar Karmakar</span>
                             </div>
                         @endif

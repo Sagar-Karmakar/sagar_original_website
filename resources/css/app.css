@@ -51,4 +51,11 @@
     html {
         color-scheme: light;
     }
+
+    /* Even line lengths in headings, so no single word is left alone on a line */
+    h1,
+    h2,
+    h3 {
+        text-wrap: balance;
+    }
 }

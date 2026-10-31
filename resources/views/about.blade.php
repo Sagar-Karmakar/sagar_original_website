@@ -10,7 +10,7 @@
                 <p class="max-w-145 text-lead text-muted">Couples coach. I love science and I love spirituality, and I want every idea I teach to stand up to both.</p>
             </div>
             <div class="min-w-0 flex-[1_1_340px]">
-                <x-photo name="about" alt="Sagar and Arpita at home" class="aspect-[4/5]" eager />
+                <x-photo name="about" alt="Sagar Karmakar, couples coach" class="aspect-[4/5]" eager />
             </div>
         </div>
     </section>

@@ -25,16 +25,20 @@
     @endif
     <meta name="color-scheme" content="light">
     <meta name="theme-color" content="#fdf4f2">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/images/favicon-32.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-page font-sans text-base text-ink antialiased">
+<body class="flex min-h-screen flex-col bg-page font-sans text-base text-ink antialiased">
 
     <x-site-header :nav="$nav" />
 
-    <main>
+    {{-- flex-1 keeps the footer at the bottom of the screen on short pages --}}
+    <main class="flex-1">
         {{ $slot }}
     </main>
 

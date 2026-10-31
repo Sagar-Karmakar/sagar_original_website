@@ -251,7 +251,11 @@ The site picks photos up from `public/images` by file name. Drop a file in with 
 | `share` | The preview when a link is shared on WhatsApp or Facebook | 1200×630 |
 | `book-just-the-two-of-us`, `book-love-rediscovered` | Books page covers | 2:3, at least 800×1200 |
 
-Keep each photo under about 500 KB (`.webp` or a compressed `.jpg`) so pages stay fast on phones.
+Keep each photo under about 500 KB (`.webp` or a compressed `.jpg`) so pages stay fast on phones. The full-size originals are kept in `resources/images`, which visitors can't reach.
+
+**To change a photo later:** put the new file in `public/images` with the same name, and delete the old one if it has a different extension. When there are two, `.webp` wins over `.jpg` and `.png`.
+
+**App icons:** the Android app and the installable admin use your portrait (`resources/images/app-icon.png`). The browser tab icon stays the red heart, because a face is too small to read at that size.
 
 ---
 
@@ -308,7 +312,7 @@ Booking emails are really sent offline too, through Hostinger, once `MAIL_USERNA
 
 1. Set the hosting's PHP version to 8.3 or newer (Laravel 13 needs it). Create a MySQL database and note its name, user and password. Make sure the site has an SSL certificate (https). Phone notifications and the Android app need it.
 2. On the server, set in `.env`: `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://sagarkarmakar.com`, the `DB_` values from step 1, the Hostinger mail settings (copy the `MAIL_` lines from your local `.env`), and the booking settings above. Then run `php artisan mail:test` on the server.
-3. Run `npm run build` locally and upload `public/build` (it isn't in git).
+3. The built CSS and JS (`public/build`) are in git, so the server doesn't need Node. **After changing any page or style, run `npm run build` locally and commit `public/build` too.**
 4. On the server:
    ```
    composer install --no-dev --optimize-autoloader
@@ -323,7 +327,7 @@ Booking emails are really sent offline too, through Hostinger, once `MAIL_USERNA
    cd /path/to/the/site && php artisan schedule:run
    ```
    It deletes bookings older than 12 months each day, as the privacy policy promises.
-5. Point the domain's web root at the `public/` folder.
+5. Point the domain's web root at the `public/` folder. If your hosting can't (e.g. the whole project is deployed into `public_html`), the `.htaccess` file at the project root sends every request into `public/` for you.
 6. In the live admin, connect Google Calendar if you use it.
 7. Book a test call on the live site, check both emails arrive (and the calendar event), then cancel it.
 

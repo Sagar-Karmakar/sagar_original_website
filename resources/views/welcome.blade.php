@@ -4,7 +4,7 @@
     <section class="pt-[clamp(2.5rem,6vw,6rem)] pb-[clamp(3rem,6vw,5.5rem)]">
         <div class="mx-auto flex max-w-site flex-wrap items-center gap-12 px-6">
             <div data-hero class="flex min-w-0 flex-[1_1_500px] flex-col gap-5">
-                <p class="self-start rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-semibold text-muted">For married couples · Online · English, Hindi or Bengali</p>
+                <p class="self-start rounded-2xl border border-line bg-surface px-3.5 py-1.5 text-sm font-semibold text-muted sm:rounded-full">For married couples · Online · English, Hindi or Bengali</p>
                 <h1 class="font-serif text-hero font-semibold tracking-[-0.01em]">
                     Married, but living like
                     <span class="relative whitespace-nowrap">room partners?<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="absolute -bottom-2 left-0 h-3.5 w-full text-brand"><path d="M4 14 C 60 4, 120 18, 180 9 S 270 6, 296 11"/></svg></span>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="relative min-w-0 flex-[1_1_360px]">
-                <x-photo name="home-hero" alt="Sagar and Arpita, laughing over chai at home" hint="A real photo, warm light, no studio look" class="aspect-[4/5]" eager>
+                <x-photo name="home-hero" alt="Sagar and Arpita smiling together on the sofa at home" class="aspect-[4/5]" eager>
                     <x-icon name="chai" class="size-10 text-brand" stroke-width="1.5" />
                 </x-photo>
                 <div class="absolute bottom-7 -left-3 flex max-w-60 flex-col gap-0.5 rounded-2xl border border-line bg-surface px-[18px] py-3.5">
@@ -111,7 +111,14 @@
                     </div>
                 @endforeach
             </div>
-            <p>Back to Us couples get all 120 games from my book, <em>Just The Two Of Us</em>. Many have a quiet version for when family is in the next room.</p>
+            <div class="flex items-center gap-5">
+                @if ($cover = \App\Support\SiteImage::url('book-just-the-two-of-us'))
+                    <a href="{{ route('books') }}" class="shrink-0">
+                        <img src="{{ $cover }}" alt="Cover of Just The Two Of Us" loading="lazy" class="aspect-[2/3] w-20 rounded-md object-cover shadow-md sm:w-24">
+                    </a>
+                @endif
+                <p>Back to Us couples get all 120 games from my book, <a href="{{ route('books') }}" class="italic underline hover:text-brand">Just The Two Of Us</a>. Many have a quiet version for when family is in the next room.</p>
+            </div>
         </div>
     </section>
 
@@ -232,7 +239,7 @@
     <section class="border-y border-line bg-surface py-section">
         <div class="mx-auto flex max-w-site flex-wrap items-center gap-12 px-6">
             <div data-reveal class="min-w-0 flex-[1_1_360px]">
-                <x-photo name="coach" alt="Sagar and Arpita together" class="aspect-square" />
+                <x-photo name="coach" alt="Sagar Karmakar taking notes during a coaching session" class="aspect-square" />
             </div>
             <div data-reveal class="flex min-w-0 flex-[1_1_480px] flex-col gap-4">
                 <x-eyebrow>Meet your coach</x-eyebrow>
@@ -264,8 +271,8 @@
         </section>
     @endif
 
-    <!-- Who it's for -->
-    <section class="pb-section">
+    <!-- Who it's for (needs its own top space when there are no reviews above) -->
+    <section @class(['pb-section', 'pt-section' => $reviews->isEmpty()])>
         <div data-stagger class="mx-auto grid max-w-site grid-fit-75 gap-5 px-6">
             <div class="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-8">
                 <h2 class="font-serif text-3xl font-semibold">Back to Us is for you if</h2>
