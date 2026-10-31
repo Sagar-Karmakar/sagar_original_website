@@ -1,6 +1,0 @@
-# For hosting where this whole project sits in the web root (e.g. Hostinger's public_html):
-# send every request into public/, so only that folder is reachable and files like .env never are.
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteRule ^(.*)$ public/$1 [L]
-</IfModule>

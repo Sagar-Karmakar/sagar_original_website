@@ -327,7 +327,13 @@ Booking emails are really sent offline too, through Hostinger, once `MAIL_USERNA
    cd /path/to/the/site && php artisan schedule:run
    ```
    It deletes bookings older than 12 months each day, as the privacy policy promises.
-5. Point the domain's web root at the `public/` folder. If your hosting can't (e.g. the whole project is deployed into `public_html`), the `.htaccess` file at the project root sends every request into `public/` for you.
+5. Point the domain's web root at the `public/` folder. On Hostinger, `public_html/.htaccess` sends sagarkarmakar.com into `public_html/mainwebsite/`, and `public_html/mainwebsite/.htaccess` (kept on the server, not in git) sends it on into `public/` with:
+   ```
+   <IfModule mod_rewrite.c>
+       RewriteEngine On
+       RewriteRule ^(.*)$ public/$1 [L]
+   </IfModule>
+   ```
 6. In the live admin, connect Google Calendar if you use it.
 7. Book a test call on the live site, check both emails arrive (and the calendar event), then cancel it.
 
