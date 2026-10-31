@@ -21,20 +21,6 @@ beforeEach(function () {
     $this->travelTo(CarbonImmutable::parse('2026-11-02 09:00', 'Asia/Kolkata')->utc());
 });
 
-function bookingData(array $overrides = []): array
-{
-    return [
-        'starts_at' => '2026-11-02T19:30:00+05:30',
-        'name' => 'Priya',
-        'partner_name' => 'Rahul',
-        'email' => 'priya@example.com',
-        'phone' => '+91 98765 43210',
-        'language' => 'English',
-        'partner_joining' => '1',
-        ...$overrides,
-    ];
-}
-
 function openTimes(string $date): array
 {
     return collect(app(BookingAvailability::class)->days()[$date])->map->format('H:i')->all();

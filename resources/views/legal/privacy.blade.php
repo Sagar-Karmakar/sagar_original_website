@@ -8,7 +8,7 @@
 
     <h2>Who sees it</h2>
     <p>What you share stays between us. I never sell your details, and I never share a couple's story without written permission. Names are always hidden.</p>
-    <p>Bookings are saved on this website's own server, and booking emails go through [your email provider]. Messages go through WhatsApp, which handles them under its own privacy policy. [Add your payment provider here.]</p>
+    <p>Bookings are saved on this website's own server and copied to my private Google Calendar, and booking emails are sent through Hostinger. Messages go through WhatsApp, which handles them under its own privacy policy. [Add your payment provider here.]</p>
 
     <h2>How long I keep it</h2>
     <p>[How long you keep notes and contact details after coaching ends.]</p>

@@ -36,4 +36,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/availability', [Admin\AvailabilityController::class, 'update'])->name('availability.update');
     Route::post('/blocked-dates', [Admin\AvailabilityController::class, 'blockDate'])->name('blocked-dates.store');
     Route::delete('/blocked-dates/{blockedDate}', [Admin\AvailabilityController::class, 'unblockDate'])->name('blocked-dates.destroy');
+    Route::get('/app', [Admin\PhoneAppController::class, 'show'])->name('app');
+    Route::get('/app/android', [Admin\PhoneAppController::class, 'downloadApk'])->name('app.apk');
+    Route::post('/push-subscriptions', [Admin\PhoneAppController::class, 'subscribe'])->name('push.subscribe');
+    Route::delete('/push-subscriptions', [Admin\PhoneAppController::class, 'unsubscribe'])->name('push.unsubscribe');
+    Route::post('/push/test', [Admin\PhoneAppController::class, 'test'])->name('push.test');
+    Route::get('/google/connect', [Admin\GoogleCalendarController::class, 'connect'])->name('google.connect');
+    Route::get('/google/callback', [Admin\GoogleCalendarController::class, 'callback'])->name('google.callback');
+    Route::post('/google/disconnect', [Admin\GoogleCalendarController::class, 'disconnect'])->name('google.disconnect');
 });

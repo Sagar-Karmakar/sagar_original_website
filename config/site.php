@@ -18,6 +18,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Admin login
+    |--------------------------------------------------------------------------
+    |
+    | `php artisan admin:create` (with no email) and `php artisan db:seed`
+    | create the /admin login from these. On the live server, remove the
+    | password from .env once the login exists.
+    |
+    */
+
+    'admin' => [
+        'email' => env('ADMIN_EMAIL'),
+        'password' => env('ADMIN_PASSWORD'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Back to Us founding offer
     |--------------------------------------------------------------------------
     */

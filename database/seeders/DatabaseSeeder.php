@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // The /admin login, from ADMIN_EMAIL and ADMIN_PASSWORD in .env
+        ['email' => $email, 'password' => $password] = config('site.admin');
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        if ($email && $password) {
+            User::updateOrCreate(['email' => $email], ['name' => 'Sagar Karmakar', 'password' => $password]);
+        }
     }
 }

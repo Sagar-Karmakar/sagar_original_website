@@ -41,7 +41,20 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/**
+ * A valid booking form for Monday 2 November 2026, 7:30 pm India time
+ * (tests travel to that morning first).
+ */
+function bookingData(array $overrides = []): array
 {
-    // ..
+    return [
+        'starts_at' => '2026-11-02T19:30:00+05:30',
+        'name' => 'Priya',
+        'partner_name' => 'Rahul',
+        'email' => 'priya@example.com',
+        'phone' => '+91 98765 43210',
+        'language' => 'English',
+        'partner_joining' => '1',
+        ...$overrides,
+    ];
 }

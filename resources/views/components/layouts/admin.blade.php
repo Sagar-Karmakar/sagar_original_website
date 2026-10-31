@@ -7,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <meta name="color-scheme" content="light">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="theme-color" content="#b81f1f">
+    <link rel="manifest" href="/admin-manifest.json">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
     <title>{{ $title }} · Admin · Sagar for Couples</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/admin.js'])
 </head>
 <body class="bg-page font-sans text-base text-ink antialiased">
 
@@ -20,7 +24,7 @@
             <a href="{{ route('admin.bookings') }}" class="font-serif text-xl font-semibold">Sagar <span class="text-brand">admin</span></a>
             @auth
                 <nav aria-label="Admin" class="flex flex-wrap items-center gap-x-5 gap-y-2">
-                    @foreach (['admin.bookings' => 'Bookings', 'admin.availability' => 'Availability'] as $route => $label)
+                    @foreach (['admin.bookings' => 'Bookings', 'admin.availability' => 'Availability', 'admin.app' => 'Phone app'] as $route => $label)
                         <a href="{{ route($route) }}" @if (request()->routeIs($route)) aria-current="page" @endif
                            class="text-muted hover:text-ink aria-[current=page]:font-semibold aria-[current=page]:text-brand">{{ $label }}</a>
                     @endforeach

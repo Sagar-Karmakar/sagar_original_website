@@ -27,6 +27,7 @@ class Booking extends Model
         'language',
         'partner_joining',
         'notes',
+        'google_event_id',
         'cancelled_at',
     ];
 

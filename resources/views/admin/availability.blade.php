@@ -85,6 +85,31 @@
                 </ul>
             @endif
         </section>
+
+        <section class="flex flex-col gap-5">
+            <div class="flex flex-col gap-2">
+                <h2 class="font-serif text-h2 font-semibold">Google Calendar</h2>
+                <p class="max-w-190 text-muted">Connect your Google Calendar and every new booking is added to it automatically, with the couple's details. Cancelled calls are removed from it.</p>
+            </div>
+
+            <div class="flex flex-col items-start gap-4 rounded-2xl border border-line bg-surface p-5 sm:p-6">
+                @if (! $calendar->isConfigured())
+                    <p>To turn this on, add <code>GOOGLE_CLIENT_ID</code> and <code>GOOGLE_CLIENT_SECRET</code> to <code>.env</code>. The README's "Google Calendar" section shows how to get them from Google. It's free and takes about 10 minutes.</p>
+                @elseif ($calendarConnection)
+                    <p><strong>Connected</strong> to {{ $calendarConnection->google_email }}.</p>
+                    @if ($calendarConnection->last_error)
+                        <p class="rounded-xl bg-brand/10 px-4 py-3 text-small text-brand"><strong>The last calendar update failed:</strong> {{ $calendarConnection->last_error }} If this keeps happening, disconnect and connect again.</p>
+                    @endif
+                    <form method="POST" action="{{ route('admin.google.disconnect') }}">
+                        @csrf
+                        <x-button variant="outline" size="sm">Disconnect</x-button>
+                    </form>
+                @else
+                    <x-button :href="route('admin.google.connect')">Connect Google Calendar</x-button>
+                    <p class="text-small text-muted">You'll go to Google to allow access to your calendar's events, then come back here.</p>
+                @endif
+            </div>
+        </section>
     </div>
 
 </x-layouts.admin>

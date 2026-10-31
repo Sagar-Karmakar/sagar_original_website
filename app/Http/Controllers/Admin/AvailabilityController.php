@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BlockedDate;
 use App\Models\WeeklyHour;
+use App\Services\GoogleCalendar;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +16,14 @@ class AvailabilityController extends Controller
 {
     public const WEEKDAYS = [1 => 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-    public function edit(): View
+    public function edit(GoogleCalendar $calendar): View
     {
         return view('admin.availability', [
             'weekdays' => self::WEEKDAYS,
             'hours' => WeeklyHour::all()->keyBy('weekday'),
             'blockedDates' => BlockedDate::where('date', '>=', now(config('booking.timezone'))->toDateString())->orderBy('date')->get(),
+            'calendar' => $calendar,
+            'calendarConnection' => $calendar->connection(),
         ]);
     }
 
