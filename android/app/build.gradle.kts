@@ -18,8 +18,8 @@ android {
         minSdk = 24
         targetSdk = 36
         // Raise both for every new APK, or Android won't install it over the old one
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
     }
 
     signingConfigs {

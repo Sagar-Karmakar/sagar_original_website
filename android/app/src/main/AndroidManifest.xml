@@ -9,6 +9,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:manageSpaceActivity="com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity"
         android:supportsRtl="true">
 
         <meta-data
@@ -58,6 +59,16 @@
                     android:host="sagarkarmakar.com"
                     android:pathPrefix="/admin" />
             </intent-filter>
+        </activity>
+
+        <!-- "Site settings" shortcut and the app's "Manage storage" screen. The launcher above
+             enables this on start, so the app crashes on launch if it isn't declared. -->
+        <activity
+            android:name="com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.customtabs.trusted.MANAGE_SPACE_URL"
+                android:value="@string/launch_url" />
         </activity>
 
         <!-- Lets Chrome hand the splash image to the app -->
