@@ -1,411 +1,321 @@
-@extends('layouts.app')
+@php($founding = config('site.founding'))
 
-@section('title', 'Align With Sagar | You Know You\'re Meant For More.')
+<x-layouts.app nav="home" sticky-cta>
 
-@push('styles')
-<style>
-    @media (max-width: 1023px) {
-        .hero-bg-mobile-custom {
-            background-position: 75% center !important;
-        }
-    }
-
-    .btn-shiny-gold {
-        position: relative;
-        overflow: hidden;
-        background: linear-gradient(135deg, #dfd2bc 0%, #b89047 50%, #906e30 100%);
-        border: 1px solid rgba(223, 210, 188, 0.8);
-        color: #020617 !important;
-        box-shadow: 0 0 20px rgba(184, 144, 71, 0.2);
-        transition: all 0.3s ease;
-    }
-    .btn-shiny-gold::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -150%;
-        width: 50%;
-        height: 100%;
-        background: linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.6) 50%,
-            rgba(255, 255, 255, 0) 100%
-        );
-        transform: skewX(-25deg);
-        animation: shine 4s infinite;
-    }
-    @keyframes shine {
-        0% { left: -150%; }
-        12% { left: 150%; }
-        100% { left: 150%; }
-    }
-</style>
-@endpush
-
-@section('background')
-    <!-- Dynamic Background Decor (Nebula glows) -->
-    <div class="fixed top-0 left-0 w-full h-full -z-20 bg-[#020617] overflow-hidden pointer-events-none">
-        <div class="absolute top-[10%] right-[-10%] w-[600px] h-[600px] bg-primary/10 rounded-full filter blur-[150px] animate-pulse"></div>
-        <div class="absolute bottom-[10%] left-[-10%] w-[700px] h-[700px] bg-cyan-500/5 rounded-full filter blur-[180px] animate-pulse duration-[8000ms]"></div>
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black"></div>
-    </div>
-@endsection
-
-@section('content')
-
-    <!-- HERO / BANNER SECTION -->
-    <section id="home" class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden bg-[#020617]">
-        <!-- Full-screen background image -->
-        <div class="absolute inset-0 bg-cover bg-center lg:bg-center bg-no-repeat z-0 opacity-90 hero-bg-mobile-custom" style="background-image: url('{{ asset('images/Banner-Image-Home.jpeg') }}');"></div>
-        
-        <!-- Left-to-right dark gradient overlay to blend the image and make text readable -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#020617]/60 to-transparent z-10"></div>
-        <!-- Bottom-to-top gradient for section blending -->
-        <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent z-10 opacity-80"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
-            <div class="max-w-3xl space-y-8 reveal active lg:bg-transparent bg-transparent lg:p-0 p-6 sm:p-8 rounded-2xl backdrop-blur-none lg:backdrop-blur-none border-none lg:border-none shadow-none lg:shadow-none">
-                
-                <!-- Spaced Subheading Tagline -->
-                <div class="flex items-center gap-3">
-                    <span class="w-8 h-[1px] bg-primary"></span>
-                    <span class="text-[10px] font-bold tracking-[0.25em] text-primary uppercase">Align Your Mind. Design Your Future.</span>
-                </div>
-
-                <!-- Headline -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.15] tracking-tight text-white font-sans">
-                    You Know You're Meant For More.
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#22d3ee] drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">So Why Do You Still Feel Stuck?</span>
+    <!-- Hero -->
+    <section class="pt-[clamp(2.5rem,6vw,6rem)] pb-[clamp(3rem,6vw,5.5rem)]">
+        <div class="mx-auto flex max-w-site flex-wrap items-center gap-12 px-6">
+            <div data-hero class="flex min-w-0 flex-[1_1_500px] flex-col gap-5">
+                <p class="self-start rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-semibold text-muted">For married couples · Online · English, Hindi or Bengali</p>
+                <h1 class="font-serif text-hero font-semibold tracking-[-0.01em]">
+                    Married, but living like
+                    <span class="relative whitespace-nowrap">room partners?<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="absolute -bottom-2 left-0 h-3.5 w-full text-brand"><path d="M4 14 C 60 4, 120 18, 180 9 S 270 6, 296 11"/></svg></span>
                 </h1>
-                
-                <div class="w-20 h-0.5 bg-primary/50"></div>
-
-                <!-- Symptoms and context -->
-                <div class="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed font-light">
-                    <p>
-                        You've read the books. <br>
-                        You've watched the videos. <br>
-                        You've set goals before.
-                    </p>
-                    <p class="text-white font-semibold">
-                        Yet somehow, you keep finding yourself in the same place.
-                    </p>
+                <p class="max-w-145 text-lead text-body">Back to Us is a 4-week online program that helps you laugh, talk and feel like a team again, with 2-minute couple games and simple talk tools made for busy Indian homes.</p>
+                <div class="mt-1 flex flex-wrap gap-3">
+                    <x-button :href="route('call')" size="lg">Book your free 20-minute call</x-button>
+                    <x-button :href="config('site.whatsapp_url')" variant="outline" size="lg">
+                        <x-icon name="chat" class="size-5" stroke-width="1.8" />
+                        Ask on WhatsApp
+                    </x-button>
                 </div>
+                <ul aria-label="About the free call" class="flex flex-wrap gap-x-5 gap-y-2 text-small text-body">
+                    @foreach (['Free first call', 'No pressure to buy', 'Private and confidential'] as $point)
+                        <li class="flex items-center gap-1.5"><x-icon name="check" class="size-[18px] text-brand" stroke-width="2.4" />{{ $point }}</li>
+                    @endforeach
+                </ul>
+            </div>
 
-                <!-- Symptoms tags -->
-                <div class="flex flex-wrap gap-2.5 pt-2">
-                    <span class="px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-gray-300 backdrop-blur-md">Overthinking</span>
-                    <span class="px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-gray-300 backdrop-blur-md">Second-guessing yourself</span>
-                    <span class="px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-gray-300 backdrop-blur-md">Starting and stopping</span>
-                    <span class="px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-gray-300 backdrop-blur-md">Waiting for the "right time"</span>
-                </div>
-
-                <!-- Realization transition -->
-                <div class="space-y-3 border-l-2 border-primary/50 pl-5 py-1">
-                    <span class="text-[9px] font-bold uppercase tracking-widest text-gray-500 block">The truth is...</span>
-                    <p class="text-base text-gray-200 leading-snug">You don't need more motivation.</p>
-                    <p class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#14b8a6] tracking-tight">You need alignment.</p>
-                </div>
-
-                <!-- Summary helper paragraph -->
-                <!-- <p class="text-gray-300 text-sm sm:text-base leading-relaxed font-light">
-                    I help people align their thoughts, emotions, identity, and actions so they can finally move forward with clarity, confidence, and momentum.
-                </p> -->
-
-                <!-- CTA Button -->
-                <div class="pt-4 text-center lg:text-left">
-                    <a href="https://wa.me/916291373748?text=Hello%20Sagar,%20I%20want%20to%20book%20an%20alignment%20call." target="_blank" class="px-8 py-4 rounded text-black font-bold tracking-wider uppercase text-xs inline-block btn-shiny-gold">
-                        Book Your Alignment Call ➔
-                    </a>
+            <div class="relative min-w-0 flex-[1_1_360px]">
+                <x-photo-placeholder label="Sagar and Arpita, laughing over chai at home" hint="A real photo, warm light, no studio look" class="aspect-[4/5]">
+                    <x-icon name="chai" class="size-10 text-brand" stroke-width="1.5" />
+                </x-photo-placeholder>
+                <div class="absolute bottom-7 -left-3 flex max-w-60 flex-col gap-0.5 rounded-2xl border border-line bg-surface px-[18px] py-3.5">
+                    <span class="text-xs font-bold tracking-[0.08em] text-brand uppercase">Tonight's game · 2 min</span>
+                    <span class="font-serif text-xl font-semibold">Chai Toast</span>
+                    <span class="text-sm text-muted">Toast your partner for one small thing they did today.</span>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- THE INVISIBLE STRUGGLE SECTION -->
-    <section id="invisible-struggle" class="py-24 relative overflow-hidden border-t border-white/5 bg-[#020617]">
-        <!-- Full-screen background image for Section -->
-        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat z-0 opacity-90" style="background-image: url('{{ asset('images/the-invisible-strugle.jpeg') }}');"></div>
-        
-        <!-- Dark gradient overlays to keep text readable -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#020617]/85 to-transparent z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617] z-10 opacity-90"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
-            
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                
-                <!-- Left Column: Tagline & Headline -->
-                <div class="lg:col-span-5 space-y-6 reveal">
-                    <div class="flex items-center gap-3">
-                        <span class="w-8 h-[1px] bg-primary"></span>
-                        <span class="text-[10px] font-bold tracking-[0.25em] text-primary uppercase">The Invisible Struggle</span>
-                    </div>
-                    
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-sans tracking-tight text-white leading-tight">
-                        From The Outside, <br>
-                        Everything Looks Fine.
-                    </h2>
-                    
-                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed font-light">
-                        To family, friends, and colleagues, you have it all under control. You play your part. Nobody sees the internal friction.
-                    </p>
-                    
-                    <div class="text-[#c5a880] text-xs font-semibold uppercase tracking-wider">
-                        But inside...
-                    </div>
-                </div>
-
-                <!-- Right Column: Symptom Cards -->
-                <div class="lg:col-span-7 space-y-4 reveal animate-delay-200" style="transition-delay: 150ms">
-                    <!-- Card 1: Drifting -->
-                    <div class="glass p-6 rounded-lg border border-white/5 hover:border-primary/20 transition-all duration-300 flex gap-4 items-start group">
-                        <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 drop-shadow-[0_0_4px_rgba(6,182,212,0.2)]">
-                            <i class="fas fa-wind text-sm"></i>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-white font-bold tracking-wider text-xs uppercase">Drifting</h3>
-                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed font-light">
-                                You feel like you're drifting. You have dreams that excite you, but they never seem to become reality.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Fading Momentum -->
-                    <div class="glass p-6 rounded-lg border border-white/5 hover:border-primary/20 transition-all duration-300 flex gap-4 items-start group">
-                        <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 drop-shadow-[0_0_4px_rgba(6,182,212,0.2)]">
-                            <i class="fas fa-tachometer-alt text-sm"></i>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-white font-bold tracking-wider text-xs uppercase">Fading Momentum</h3>
-                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed font-light">
-                                You start things with enthusiasm, then lose momentum. You make plans, then abandon them.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Subconscious Blocks -->
-                    <div class="glass p-6 rounded-lg border border-white/5 hover:border-primary/20 transition-all duration-300 flex gap-4 items-start group">
-                        <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 drop-shadow-[0_0_4px_rgba(6,182,212,0.2)]">
-                            <i class="fas fa-lock text-sm"></i>
-                        </div>
-                        <div class="space-y-1">
-                            <h3 class="text-white font-bold tracking-wider text-xs uppercase">Subconscious Blocks</h3>
-                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed font-light">
-                                You know what needs to be done, but something always seems to hold you back.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
+    <!-- Sound familiar -->
+    <section class="border-y border-line bg-surface py-section">
+        <div class="mx-auto flex max-w-site flex-col gap-8 px-6">
+            <div data-reveal class="flex max-w-190 flex-col gap-3">
+                <x-eyebrow>Sound familiar?</x-eyebrow>
+                <h2 class="font-serif text-h2 font-semibold">You didn't stop loving each other. Life just got full.</h2>
             </div>
-
-            <!-- Bottom Section: Yearly Cycle & Core Truth -->
-            <div class="mt-20 max-w-4xl mx-auto space-y-8 text-center reveal" style="transition-delay: 250ms">
-                <!-- Yearly Cycle Card -->
-                <div class="glass rounded-xl p-8 sm:p-10 border border-white/5 shadow-lg relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full filter blur-[40px] pointer-events-none"></div>
-                    <div class="space-y-3">
-                        <p class="text-gray-400 text-sm leading-relaxed font-light">Every year begins with hope.</p>
-                        <p class="text-lg sm:text-xl text-white font-semibold">Every year ends with the same question:</p>
-                        <p class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#14b8a6] tracking-tight drop-shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                            "Why am I still here?"
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Final Core Truth Statement -->
-                <div class="pt-6">
-                    <p class="text-gray-400 text-xs uppercase tracking-widest font-bold block">And the hardest part?</p>
-                    <p class="text-2xl sm:text-3xl font-serif italic text-white leading-relaxed mt-2 font-light">
-                        You know you're capable of more. <br class="sm:hidden"> <span class="text-primary font-bold not-italic">Much more.</span>
-                    </p>
-                </div>
+            <div data-stagger class="grid grid-fit-62 gap-4">
+                @foreach ([
+                    'Your talks sound like a to-do list: bills, EMIs, school forms, the gas cylinder.',
+                    'Same sofa, different worlds. One scrolls reels, one answers the office group.',
+                    'Small things turn into big fights, and nobody remembers how they started.',
+                    'You can\'t remember the last time you laughed together until your stomach hurt.',
+                ] as $sign)
+                    <div class="rounded-2xl border border-line bg-page p-6 text-lg">{{ $sign }}</div>
+                @endforeach
             </div>
-
+            <p data-reveal class="max-w-190 text-[19px]">If that's your home, nothing is wrong with you. This is what busy lives do to good couples. The way back is usually smaller, and lighter, than you think.</p>
         </div>
     </section>
 
-
-    <!-- THE REAL PROBLEM SECTION -->
-    <section id="real-problem" class="py-24 relative border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
-            
-            <!-- Category Tag -->
-            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-                <p class="text-primary font-bold uppercase tracking-[0.25em] text-[10px] mb-3">The Real Problem</p>
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-sans tracking-tight text-white">
-                    You Are Simply Out of Alignment.
-                </h2>
-                <div class="w-16 h-0.5 bg-primary/40 mx-auto mt-4"></div>
-            </div>
-
-            <!-- Debunking Myths Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <!-- Card 1: Not Lazy -->
-                <div class="glass p-6 rounded-lg border border-white/5 text-center space-y-4 hover:border-red-500/20 transition-all">
-                    <div class="w-12 h-12 rounded-full bg-red-950/20 border border-red-500/30 flex items-center justify-center mx-auto text-red-500 relative">
-                        <i class="fas fa-bed text-sm"></i>
-                        <div class="absolute inset-0 flex items-center justify-center text-red-600"><i class="fas fa-ban text-lg"></i></div>
-                    </div>
-                    <h3 class="text-white font-bold tracking-wider text-xs uppercase">You Are Not Lazy.</h3>
-                </div>
-
-                <!-- Card 2: Not Broken -->
-                <div class="glass p-6 rounded-lg border border-white/5 text-center space-y-4 hover:border-cyan-500/20 transition-all">
-                    <div class="w-12 h-12 rounded-full bg-cyan-950/20 border border-cyan-500/30 flex items-center justify-center mx-auto text-cyan-400 drop-shadow-[0_0_6px_rgba(6,182,212,0.3)]">
-                        <i class="fas fa-heart text-sm"></i>
-                    </div>
-                    <h3 class="text-white font-bold tracking-wider text-xs uppercase">You Are Not Broken.</h3>
-                </div>
-
-                <!-- Card 3: Not Lacking Potential -->
-                <div class="glass p-6 rounded-lg border border-white/5 text-center space-y-4 hover:border-[#af863f]/20 transition-all">
-                    <div class="w-12 h-12 rounded-full bg-yellow-950/20 border border-[#af863f]/30 flex items-center justify-center mx-auto text-[#af863f]">
-                        <i class="fas fa-star text-sm animate-spin-slow"></i>
-                    </div>
-                    <h3 class="text-white font-bold tracking-wider text-xs uppercase">You Are Not Lacking Potential.</h3>
-                </div>
-            </div>
-
-            <!-- Alignment Pipeline Header -->
-            <div class="mt-24 text-center max-w-2xl mx-auto reveal" style="transition-delay: 100ms">
-                <p class="text-gray-400 text-sm font-light leading-relaxed">
-                    Most people think success is about working harder. It's not.
-                </p>
-                <p class="text-lg text-white font-bold mt-2">
-                    Success happens when your core layers all move in the same direction:
-                </p>
-            </div>
-
-            <!-- Horizontal Flow Pipeline (Thoughts -> Emotions -> Identity -> Decisions -> Actions) -->
-            <div class="mt-12 max-w-5xl mx-auto reveal" style="transition-delay: 150ms">
-                <div class="glass rounded-xl p-8 border border-white/5 grid grid-cols-2 md:grid-cols-5 gap-6 text-center items-center shadow-lg relative">
-                    <!-- Thoughts -->
-                    <div class="flex flex-col items-center space-y-3 relative group">
-                        <div class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.25)]">
-                            <i class="fas fa-brain text-lg animate-pulse"></i>
-                        </div>
-                        <span class="text-xs font-bold text-white uppercase tracking-wider">Thoughts</span>
-                    </div>
-
-                    <!-- Emotions -->
-                    <div class="flex flex-col items-center space-y-3 relative group">
-                        <div class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.25)]">
-                            <i class="fas fa-heart text-lg"></i>
-                        </div>
-                        <span class="text-xs font-bold text-white uppercase tracking-wider">Emotions</span>
-                    </div>
-
-                    <!-- Identity -->
-                    <div class="flex flex-col items-center space-y-3 relative group">
-                        <div class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.25)]">
-                            <i class="fas fa-user-circle text-lg"></i>
-                        </div>
-                        <span class="text-xs font-bold text-white uppercase tracking-wider">Identity</span>
-                    </div>
-
-                    <!-- Decisions -->
-                    <div class="flex flex-col items-center space-y-3 relative group">
-                        <div class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.25)]">
-                            <i class="fas fa-code-branch text-lg"></i>
-                        </div>
-                        <span class="text-xs font-bold text-white uppercase tracking-wider">Decisions</span>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="flex flex-col items-center space-y-3 relative group">
-                        <div class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-all duration-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.25)]">
-                            <i class="fas fa-arrow-circle-right text-lg"></i>
-                        </div>
-                        <span class="text-xs font-bold text-white uppercase tracking-wider">Actions</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car pedal analogy split container -->
-            <div class="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-                <div class="space-y-6 reveal" style="transition-delay: 200ms">
-                    <span class="text-[9px] font-bold tracking-widest text-[#c5a880] uppercase">The Car Analogy</span>
-                    <h3 class="text-2xl font-bold text-white">When They Don't Move Together...</h3>
-                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed font-light">
-                        Life feels like driving with one foot on the accelerator and one foot on the brake. 
-                    </p>
-                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed font-light">
-                        No matter how hard you push, progress feels exhausting. That's why motivation fades. That's why discipline feels difficult. That's why change never lasts.
-                    </p>
-                </div>
-
-                <!-- Custom Dashboard Pedals Visual Graphic -->
-                <div class="reveal" style="transition-delay: 250ms">
-                    <div class="glass p-8 rounded-xl border border-white/5 relative flex justify-around items-center max-w-sm mx-auto shadow-lg min-h-[180px]">
-                        <!-- Left Pedal: Brake -->
-                        <div class="flex flex-col items-center space-y-2">
-                            <div class="w-12 h-24 bg-red-950/20 border border-red-500/40 rounded shadow-[0_0_15px_rgba(239,68,68,0.15)] flex flex-col justify-end p-2 relative group transform translate-y-3 transition-transform">
-                                <div class="w-full h-8 bg-red-500 rounded-sm"></div>
-                            </div>
-                            <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest">Brake</span>
-                            <span class="text-[8px] text-gray-500 uppercase">Misalignment</span>
-                        </div>
-
-                        <!-- Friction line glows in the center -->
-                        <div class="flex flex-col items-center justify-center text-red-500 animate-pulse">
-                            <i class="fas fa-exchange-alt text-2xl"></i>
-                            <span class="text-[8px] font-bold uppercase tracking-widest mt-1 text-red-400">Friction</span>
-                        </div>
-
-                        <!-- Right Pedal: Accelerator -->
-                        <div class="flex flex-col items-center space-y-2">
-                            <div class="w-10 h-28 bg-cyan-950/20 border border-cyan-500/40 rounded shadow-[0_0_15px_rgba(6,182,212,0.15)] flex flex-col justify-end p-2 relative group transform translate-y-4 transition-transform">
-                                <div class="w-full h-8 bg-primary rounded-sm"></div>
-                            </div>
-                            <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Gas</span>
-                            <span class="text-[8px] text-gray-500 uppercase">Effort</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Consequences Row -->
-            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto reveal" style="transition-delay: 200ms">
-                <!-- Motivation fades -->
-                <div class="glass p-6 rounded-lg border border-white/5 flex gap-4 items-center group">
-                    <div class="w-10 h-10 rounded-full bg-red-950/20 border border-red-500/20 flex items-center justify-center text-red-400 flex-shrink-0">
-                        <i class="fas fa-fire-alt text-sm"></i>
-                    </div>
-                    <span class="text-gray-300 font-medium text-xs uppercase tracking-wide">Motivation Fades</span>
-                </div>
-
-                <!-- Discipline difficult -->
-                <div class="glass p-6 rounded-lg border border-white/5 flex gap-4 items-center group">
-                    <div class="w-10 h-10 rounded-full bg-yellow-950/20 border border-yellow-500/20 flex items-center justify-center text-yellow-400 flex-shrink-0">
-                        <i class="fas fa-dumbbell text-sm"></i>
-                    </div>
-                    <span class="text-gray-300 font-medium text-xs uppercase tracking-wide">Discipline feels difficult</span>
-                </div>
-
-                <!-- Change never lasts -->
-                <div class="glass p-6 rounded-lg border border-white/5 flex gap-4 items-center group">
-                    <div class="w-10 h-10 rounded-full bg-cyan-950/20 border border-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
-                        <i class="fas fa-hourglass-end text-sm"></i>
-                    </div>
-                    <span class="text-gray-300 font-medium text-xs uppercase tracking-wide">Change never lasts</span>
-                </div>
-            </div>
-
-            <!-- Core Callout -->
-            <div class="mt-20 max-w-3xl mx-auto text-center reveal" style="transition-delay: 250ms">
-                <div class="bg-gradient-to-r from-primary/10 to-cyan-500/5 rounded-xl p-8 border border-primary/20 shadow-lg">
-                    <p class="text-gray-400 text-xs uppercase tracking-widest font-bold block">The Bottom Line</p>
-                    <p class="text-2xl sm:text-3xl font-serif text-white font-medium leading-relaxed mt-2">
-                        The problem isn't effort. <br class="sm:hidden"> The real problem is <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#b89047] to-[#af863f] font-bold">misalignment.</span>
-                    </p>
-                </div>
-            </div>
-
+    <!-- Quote -->
+    <section class="bg-panel py-[clamp(3.5rem,7vw,6rem)]">
+        <div data-reveal class="mx-auto flex max-w-225 flex-col items-center gap-4 px-6 text-center">
+            <p class="font-serif text-[clamp(1.75rem,3.6vw,2.875rem)] leading-[1.2] font-medium italic"><span class="text-brand">“</span>Most marriages don't break in one big fight. They drift, one ‘we'll talk later’ at a time.<span class="text-brand">”</span></p>
+            <p class="text-lg text-body">The good news: what drifted slowly can come back, two minutes at a time.</p>
         </div>
     </section>
 
-@endsection
+    <!-- How it works -->
+    <section id="how" class="py-section">
+        <div class="mx-auto flex max-w-site flex-col gap-8 px-6">
+            <div data-reveal class="flex max-w-190 flex-col gap-3">
+                <x-eyebrow>The Back to Us way</x-eyebrow>
+                <h2 class="font-serif text-h2 font-semibold">Play first. Then talk.</h2>
+                <p class="text-lg text-body">Most couples are told to “communicate more”. When you're tired and hurt, that's the hardest thing to do. So we start with something easier: play.</p>
+            </div>
+            <ol data-stagger class="grid grid-fit-65 gap-5">
+                @foreach ([
+                    ['cards', '1. Play', '2-minute games that make you laugh, notice each other and feel like a team. Most need nothing but the two of you.'],
+                    ['talk', '2. Talk', 'Simple tools for the hard stuff: start gently, listen without fixing, pause a fight and come back, and say sorry in a way that repairs.'],
+                    ['heart', '3. Keep it going', 'A small daily practice and WhatsApp check-ins between sessions, so the change doesn\'t fade after the call ends.'],
+                ] as [$icon, $step, $text])
+                    <li class="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7">
+                        <span class="flex size-13 items-center justify-center rounded-[14px] bg-brand/10 text-brand"><x-icon :name="$icon" class="size-7" stroke-width="1.6" /></span>
+                        <h3 class="font-serif text-2xl font-semibold">{{ $step }}</h3>
+                        <p class="text-body">{{ $text }}</p>
+                    </li>
+                @endforeach
+            </ol>
+            <p class="max-w-205 text-small text-muted">Research links laughing together, gratitude and trying new things together with closer, happier couples. These are links, not promises, and I'll always tell you which is which.</p>
+        </div>
+    </section>
+
+    <!-- Sample games -->
+    <section class="border-y border-line bg-surface py-section">
+        <div class="mx-auto flex max-w-site flex-col gap-8 px-6">
+            <div data-reveal class="flex max-w-190 flex-col gap-3">
+                <x-eyebrow>Try one tonight</x-eyebrow>
+                <h2 class="font-serif text-h2 font-semibold">A taste of the games</h2>
+            </div>
+            <div data-stagger class="grid grid-fit-65 gap-5">
+                @foreach ([
+                    ['Laugh', 'Worst Pickup Line', 'Each of you invents the worst pickup line you can, and delivers it with total confidence. First to laugh loses.'],
+                    ['Cherish', 'Chai Toast', 'Raise your cup and toast your partner for one small thing. “To the only person here who can fold a fitted bedsheet.”'],
+                    ['Touch', 'Melt Hug', 'Hug, and don\'t let go until you both feel your shoulders drop. Not the polite side-hug you give relatives at weddings.'],
+                ] as [$kind, $game, $howTo])
+                    <div class="flex flex-col gap-2.5 rounded-[20px] border-t-6 border-brand bg-page p-7">
+                        <span class="text-[13px] font-bold tracking-[0.08em] text-muted uppercase">{{ $kind }} · 2 min · ₹0</span>
+                        <h3 class="font-serif text-[26px] font-semibold">{{ $game }}</h3>
+                        <p class="text-body">{{ $howTo }}</p>
+                    </div>
+                @endforeach
+            </div>
+            <p>Back to Us couples get all 120 games from my book, <em>Just The Two Of Us</em>. Many have a quiet version for when family is in the next room.</p>
+        </div>
+    </section>
+
+    <!-- Aims -->
+    <section class="py-section">
+        <div class="mx-auto flex max-w-site flex-col gap-7 px-6">
+            <div data-reveal class="flex max-w-190 flex-col gap-3">
+                <x-eyebrow>In 4 weeks</x-eyebrow>
+                <h2 class="font-serif text-h2 font-semibold">What we work towards together</h2>
+                <p class="text-muted">Every couple is different, so these are aims, not promises.</p>
+            </div>
+            <ul data-stagger class="grid grid-fit-65 gap-4">
+                @foreach ([
+                    'A real laugh together, most evenings',
+                    'Fights that end the same day, and stay ended',
+                    'Saying the hard thing without starting a war',
+                    'Feeling like a team again, not colleagues',
+                ] as $aim)
+                    <li class="flex items-start gap-3.5 rounded-2xl border border-line bg-surface p-[22px]">
+                        <x-icon name="check" class="size-[26px] shrink-0 text-brand" stroke-width="2.2" />
+                        <span class="text-lg">{{ $aim }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </section>
+
+    <!-- The program -->
+    <section id="back-to-us" class="bg-panel py-section">
+        <div class="mx-auto flex max-w-site flex-col gap-10 px-6">
+            <div class="flex flex-wrap items-start gap-10">
+                <div data-reveal class="flex min-w-0 flex-[1_1_480px] flex-col gap-4">
+                    <x-eyebrow>The program</x-eyebrow>
+                    <h2 class="font-serif text-h1 font-semibold">Back to Us</h2>
+                    <p class="text-[19px]">A 4-week online program for married couples who want to feel like friends, and lovers, again.</p>
+                    <p class="mt-2 font-bold">Everything you get:</p>
+                    <ul class="flex flex-col gap-3">
+                        @foreach ([
+                            ['4 weekly couple sessions', ', online, at times that suit working couples'],
+                            ['A 2-minute game every day', ', picked for that week'],
+                            ['WhatsApp check-ins', ' between sessions'],
+                            ['A private safety check', ' with each partner before week 1'],
+                            ['2 booster calls', ', 1 month and 3 months later'],
+                        ] as [$item, $detail])
+                            <li class="flex items-start gap-3">
+                                <x-icon name="check" class="mt-[3px] size-[22px] shrink-0 text-brand" stroke-width="2.2" />
+                                <span><strong>{{ $item }}</strong>{{ $detail }}</span>
+                            </li>
+                        @endforeach
+                        <li class="flex items-start gap-3">
+                            <x-icon name="check" class="mt-[3px] size-[22px] shrink-0 text-brand" stroke-width="2.2" />
+                            <span><strong>Bonus:</strong> all 120 games in my book, <em>Just The Two Of Us</em></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div data-reveal class="flex min-w-0 flex-[1_1_360px] flex-col gap-3.5 rounded-[20px] border-2 border-brand bg-surface p-8">
+                    <p class="self-start rounded-full bg-brand px-3 py-1 text-[13px] font-bold tracking-[0.06em] text-white uppercase">Founding couples</p>
+                    <p class="font-serif text-[56px] leading-none font-semibold">{{ $founding['price'] }}</p>
+                    <p class="text-muted">per couple, for the whole 4 weeks</p>
+                    <p class="rounded-xl bg-page px-3.5 py-3 text-small">For comparison, one couple session in India usually costs ₹2,800–3,500. Back to Us gives you 4 sessions, daily games and support between them.</p>
+                    <p class="self-start rounded-full bg-panel px-3.5 py-1.5 text-small font-bold">Spots left: {{ $founding['spots_left'] }} of {{ $founding['spots'] }}</p>
+                    <x-button :href="route('call')" size="lg" class="w-full">Start with a free call</x-button>
+                    <p class="text-small text-muted"><strong class="text-ink">Why so low?</strong> You'd be one of my first {{ $founding['spots'] }} couples, and I'll ask for your honest feedback in return. After that, the price goes up.</p>
+                    <p class="text-small text-muted"><strong class="text-ink">Refund rule:</strong> [your refund rule, in one plain sentence]</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <h3 class="font-serif text-[28px] font-semibold">Your 4 weeks</h3>
+                <div data-stagger class="grid grid-fit-55 gap-4">
+                    @foreach ([
+                        ['Friends again', 'Laugh and play as a team. Notice the small ways you still reach for each other.'],
+                        ['Talk without fighting', 'Gentle starts, real listening, a break that ends in coming back, and a sorry that repairs.'],
+                        ['Heal', 'Trust and old hurts, gently. See the pattern you\'re both stuck in, instead of blaming each other.'],
+                        ['Spark', 'Closeness and romance, at your own pace. And a plan to keep playing after we finish.'],
+                    ] as [$week, $text])
+                        <div class="flex flex-col gap-2 rounded-2xl bg-page p-6">
+                            <span class="flex size-10 items-center justify-center rounded-full bg-brand font-bold text-white">{{ $loop->iteration }}</span>
+                            <h4 class="text-xl font-bold">{{ $week }}</h4>
+                            <p class="text-body">{{ $text }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to start -->
+    <section class="py-section">
+        <div class="mx-auto flex max-w-site flex-col gap-7 px-6">
+            <h2 data-reveal class="font-serif text-h2 font-semibold">How to start</h2>
+            <ol data-stagger class="grid grid-fit-65 gap-5">
+                @foreach ([
+                    ['1. Book a free 20-minute call', 'Tell me what\'s going on. I\'ll tell you honestly whether I can help.'],
+                    ['2. A private check with each of you', 'A short call with each partner alone, so both of you feel safe and heard.'],
+                    ['3. Start your 4 weeks', 'Weekly sessions, daily games and check-ins. Then 2 booster calls at 1 and 3 months.'],
+                ] as [$step, $text])
+                    <li class="flex flex-col gap-2.5 border-t-3 border-brand pt-[18px]">
+                        <span class="font-serif text-[22px] font-semibold">{{ $step }}</span>
+                        <span class="text-body">{{ $text }}</span>
+                    </li>
+                @endforeach
+            </ol>
+            <div>
+                <x-button :href="route('call')" size="lg">Book your free call</x-button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet your coach -->
+    <section class="border-y border-line bg-surface py-section">
+        <div class="mx-auto flex max-w-site flex-wrap items-center gap-12 px-6">
+            <div data-reveal class="min-w-0 flex-[1_1_360px]">
+                <x-photo-placeholder label="Sagar and Arpita together" class="aspect-square" />
+            </div>
+            <div data-reveal class="flex min-w-0 flex-[1_1_480px] flex-col gap-4">
+                <x-eyebrow>Meet your coach</x-eyebrow>
+                <h2 class="font-serif text-h2 font-semibold">Hi, I'm Sagar Karmakar.</h2>
+                <p>I'm a couples coach, and I'm married to Arpita. I do this work because of my own marriage, and because of the marriages around me where two good people quietly became room partners.</p>
+                <p>I love the science of relationships, so I'll always tell you what research shows and what it doesn't. And I'm honest about my limits: I'm a coach, not a therapist, and I'll never promise to save your marriage. I'll give you simple things to do, and I'll check that you do them.</p>
+                <p class="text-muted">[One true moment from your own marriage, in 2 or 3 lines]</p>
+                <a href="{{ route('about') }}" class="self-start font-semibold text-brand underline hover:decoration-2">Read my story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="py-section">
+        <div class="mx-auto flex max-w-site flex-col gap-8 px-6">
+            <h2 data-reveal class="font-serif text-h2 font-semibold">What couples say</h2>
+            <div data-stagger class="grid grid-fit-70 gap-5">
+                @foreach (['from a free session', 'from a free session', 'founding couple'] as $source)
+                    <figure class="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-7">
+                        <span aria-hidden="true" class="font-serif text-5xl leading-[0.6] text-brand">“</span>
+                        <blockquote class="text-lg">[Review in the couple's own words, shared with written consent]</blockquote>
+                        <figcaption class="text-sm text-muted">A couple from [city] · {{ $source }}</figcaption>
+                    </figure>
+                @endforeach
+            </div>
+            <p class="text-small text-muted">Names are hidden. Every couple is different, and no result is promised.</p>
+        </div>
+    </section>
+
+    <!-- Who it's for -->
+    <section class="pb-section">
+        <div data-stagger class="mx-auto grid max-w-site grid-fit-75 gap-5 px-6">
+            <div class="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-8">
+                <h2 class="font-serif text-3xl font-semibold">Back to Us is for you if</h2>
+                <ul class="flex list-disc flex-col gap-2 pl-[22px]">
+                    <li>You're married and want to enjoy your marriage again</li>
+                    <li>You both want to join the sessions</li>
+                    <li>You can find 2 minutes a day for a game</li>
+                    <li>You want simple things to do, not long lectures</li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-8">
+                <h2 class="font-serif text-3xl font-semibold">It's not the right first step if</h2>
+                <ul class="flex list-disc flex-col gap-2 pl-[22px]">
+                    <li>There is fear, violence or abuse at home</li>
+                    <li>One of you is in a mental health crisis</li>
+                    <li>Addiction is part of what's happening</li>
+                </ul>
+                <p class="text-muted">You deserve real support. Call the Women Helpline 181, or 112 in an emergency. Tele-MANAS (14416) offers emotional support any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="border-t border-line bg-surface py-section">
+        <div class="mx-auto flex max-w-205 flex-col gap-6 px-6">
+            <h2 data-reveal class="font-serif text-h2 font-semibold">Questions couples ask</h2>
+            <div class="flex flex-col border-t border-line">
+                @foreach ([
+                    'We\'re both so busy. Will we have time?' => 'That\'s exactly who this is for. The daily game takes 2 minutes, and sessions are online at times that suit working couples, evenings and weekends included.',
+                    'We don\'t fight much. We\'ve just drifted. Is this for us?' => 'Yes. That\'s the “room partner” stage, and it\'s one of the most common things I see. Week 1 is all about friendship and play.',
+                    'What if my partner won\'t come?' => 'Very common. Many partners say yes to a game before they say yes to coaching. Try one 2-minute game at home, lightly, with no talk of “working on us”. If they get curious, the free call is open to you both. It can also be with just one of you.',
+                    'What if it doesn\'t help?' => 'Every couple is different, and I can\'t promise results. That\'s why the first call is free, I\'ll tell you honestly if it\'s not the right fit, and there\'s a clear refund rule: [your refund rule].',
+                    'Is this therapy?' => 'No. This is coaching. I don\'t diagnose or treat any condition. If you need a therapist or a doctor, I\'ll tell you honestly and help you find one.',
+                    'Is it private?' => 'Yes. What you share stays between us. I never share a couple\'s story without written permission, and names are always hidden.',
+                    'Which language, and where?' => 'English, Hindi or Hinglish, and Bengali. Everything is online, so you can join from anywhere.',
+                ] as $question => $answer)
+                    <details class="border-b border-line py-[18px]">
+                        <summary class="cursor-pointer text-lg font-semibold">{{ $question }}</summary>
+                        <p class="mt-3 text-body">{{ $answer }}</p>
+                    </details>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- Closing call to action -->
+    <section class="bg-brand py-[clamp(4rem,8vw,7rem)] text-white">
+        <div data-reveal class="mx-auto flex max-w-site flex-col items-center gap-5 px-6 text-center">
+            <h2 class="font-serif text-h1 font-semibold">Your next evening can feel different.</h2>
+            <p class="max-w-150 text-xl">It starts with one free, 20-minute call. No pressure, no hard selling.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <x-button :href="route('call')" variant="inverse" size="lg">Book your free 20-minute call</x-button>
+                <x-button :href="config('site.whatsapp_url')" variant="outline-inverse" size="lg">Ask on WhatsApp</x-button>
+            </div>
+            <p class="text-small text-white/85">{{ $founding['spots'] }} founding spots · {{ $founding['price'] }} per couple</p>
+        </div>
+    </section>
+
+</x-layouts.app>

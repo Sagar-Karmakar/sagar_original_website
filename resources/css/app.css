@@ -1,11 +1,54 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+
+    /* Type scale from the style guide; headings scale with the screen */
+    --text-base: 1.0625rem;
+    --text-base--line-height: 1.6;
+    --text-small: 0.9375rem;
+    --text-small--line-height: 1.6;
+    --text-lead: clamp(1.125rem, 1.7vw, 1.375rem);
+    --text-lead--line-height: 1.6;
+    --text-h2: clamp(1.875rem, 3.6vw, 3rem);
+    --text-h2--line-height: 1.12;
+    --text-h1: clamp(2.25rem, 4.6vw, 3.75rem);
+    --text-h1--line-height: 1.08;
+    --text-hero: clamp(2.5rem, 5.6vw, 4.375rem);
+    --text-hero--line-height: 1.06;
+
+    --container-site: 72.5rem;
+    --spacing-section: clamp(3.5rem, 7vw, 6.5rem);
+
+    /* Light site only. #B81F1F is the one accent colour; tints of it use opacity (bg-brand/10). */
+    --color-brand: #b81f1f;
+    --color-page: #fdf4f2;
+    --color-surface: #ffffff;
+    --color-panel: #f9e7e3;
+    --color-line: #f0dad5;
+    --color-dash: #e5c2bb;
+    --color-ink: #2b2420;
+    --color-body: #4f453f;
+    --color-muted: #6d625a;
+}
+
+/* Responsive card grid: grid-fit-65 = columns at least 260px wide, never wider than the screen */
+@utility grid-fit-* {
+    grid-template-columns: repeat(auto-fit, minmax(min(calc(var(--spacing) * --value(integer)), 100%), 1fr));
+}
+
+/* Text inputs, selects and textareas */
+@utility form-control {
+    @apply w-full rounded-xl border border-line bg-page px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-brand focus:outline-2 focus:outline-brand/20 aria-invalid:border-brand;
+}
+
+@layer base {
+    html {
+        color-scheme: light;
+    }
 }

@@ -1,45 +1,39 @@
 <?php
 
+use App\Http\Controllers\Admin;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::view('/', 'welcome')->name('home');
+Route::view('/about', 'about')->name('about');
+Route::view('/books', 'books')->name('books');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/insights', function () {
-    return view('insights');
-})->name('insights');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::get('/healing-form', function () {
-    return view('healing-form');
+// Free call booking
+Route::get('/call', [BookingController::class, 'create'])->name('call');
+Route::post('/call', [BookingController::class, 'store'])->middleware('throttle:6,1')->name('call.book');
+Route::middleware('signed')->group(function () {
+    Route::get('/call/booked/{booking}', [BookingController::class, 'show'])->name('call.booked');
+    Route::get('/call/booked/{booking}/calendar', [BookingController::class, 'calendar'])->name('call.calendar');
+    Route::post('/call/booked/{booking}/cancel', [BookingController::class, 'cancel'])->name('call.cancel');
 });
 
-Route::get('/healing-form-v2', function () {
-    return view('healing-form-v2');
-});
-
-Route::get('/card-qr', function () {
-    return view('card-qr');
-});
-
-Route::post('/healing-submit', [App\Http\Controllers\HealingFormController::class, 'submit']);
-
-// Book Landing Page Routes
-Route::get('/book/thisisnotlaziness', [App\Http\Controllers\BookLandingController::class, 'index'])->name('book.landing');
-Route::post('/book/thisisnotlaziness/send', [App\Http\Controllers\NotificationController::class, 'submitLead'])->name('book.send');
-Route::get('/book/thisisnotlaziness/thankyou', [App\Http\Controllers\BookLandingController::class, 'thankYou'])->name('book.thank-you');
-
-// Legal Pages
+// Legal pages
 Route::view('/privacy-policy', 'legal.privacy')->name('privacy');
 Route::view('/terms-and-conditions', 'legal.terms')->name('terms');
+Route::view('/refund-policy', 'legal.refund')->name('refund');
 
-Route::post('/contact-submit', [App\Http\Controllers\NotificationController::class, 'submitContact']);
-Route::post('/healing-submit', [App\Http\Controllers\NotificationController::class, 'submitApplication']);
+// Admin: bookings and availability (create the login with `php artisan admin:create`)
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', [Admin\LoginController::class, 'create'])->name('login');
+    Route::post('/admin/login', [Admin\LoginController::class, 'store'])->middleware('throttle:5,1');
+});
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::post('/logout', [Admin\LoginController::class, 'destroy'])->name('logout');
+    Route::get('/', [Admin\BookingController::class, 'index'])->name('bookings');
+    Route::post('/bookings/{booking}/cancel', [Admin\BookingController::class, 'cancel'])->name('bookings.cancel');
+    Route::get('/availability', [Admin\AvailabilityController::class, 'edit'])->name('availability');
+    Route::put('/availability', [Admin\AvailabilityController::class, 'update'])->name('availability.update');
+    Route::post('/blocked-dates', [Admin\AvailabilityController::class, 'blockDate'])->name('blocked-dates.store');
+    Route::delete('/blocked-dates/{blockedDate}', [Admin\AvailabilityController::class, 'unblockDate'])->name('blocked-dates.destroy');
+});
