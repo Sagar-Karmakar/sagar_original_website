@@ -14,7 +14,7 @@
                 @foreach ($weekdays as $number => $weekday)
                     @php($window = $hours->get($number))
                     <div class="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-line py-4 first:pt-0">
-                        <label class="flex w-36 items-center gap-3 font-semibold">
+                        <label class="flex w-full items-center gap-3 font-semibold sm:w-36">
                             <input type="hidden" name="days[{{ $number }}][open]" value="0">
                             <input type="checkbox" name="days[{{ $number }}][open]" value="1" class="size-5 accent-brand"
                                    @checked(old("days.$number.open", $window ? '1' : '0') === '1')>
